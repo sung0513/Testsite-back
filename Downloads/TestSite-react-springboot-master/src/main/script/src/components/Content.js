@@ -1,26 +1,20 @@
 import React,{ Component } from 'react';
+import { Form, Button, FormGroup, FormControl, ControlLabel, Card } from "react-bootstrap";
 
 
 class Content extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {isToggleOn: true};
-    
-        // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
-        this.handleClick = this.handleClick.bind(this);
-      }
-    
-      handleClick() {
-        this.setState(state => ({
-          isToggleOn: !state.isToggleOn
-        }));
-      }
-    
       render() {
         return (
-          <button onClick={this.handleClick}>
-            {this.state.isToggleOn ? 'ON' : 'OFF'}
-          </button>
+          <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>치킨</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+            <Card.Text>
+            </Card.Text>
+            <Card.Link href="#"></Card.Link>
+            <Card.Link href="#">Another Link</Card.Link>
+          </Card.Body>
+        </Card>
         );
       }
     }
