@@ -14,9 +14,10 @@ public class MemberRepository {
     @PersistenceContext
     private EntityManager em;
 
+    //member order order food -> entity ->
+
     public void save(Member member) {
         em.persist(member);
-
     }
 
     public Member findOne(Long id) {

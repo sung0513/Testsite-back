@@ -21,6 +21,9 @@ public class Member {
 
         private  String name;
 
+
+        private  String key;
+
         @Embedded
         private  Address address;
 
@@ -29,4 +32,8 @@ public class Member {
 
         @OneToOne(mappedBy = "memmber")
         private List<Order> orders = new ArrayList<>();
+
+
+
 }
+
