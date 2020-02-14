@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "orderfood")
 public class Orderfood {
 
-    @Id@GeneratedValue
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderfood_id")
     private Long id;
 
@@ -20,12 +20,39 @@ public class Orderfood {
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int foodprice;
+    private int orderprice;
 
     private int count;
+
+    protected Orderfood() {
+
+    }
+
+    //같은 로직만 적용이 되도록 막아놓기 위한 코드임 ->
+
+    public static Orderfood createOrderfood(Food food, int orderprice, int count ) {
+        Orderfood orderfood = new Orderfood();
+        orderfood.setFood(food);
+        orderfood.setOrderprice(orderprice);
+        orderfood.setCount(count);
+
+        food.removeStock(count);
+        return orderfood;
+    }
+
+
+    public void cancel() {
+        getFood().addStock(count);
+    }
+
+    //총가
+    public int getTotalPrice() {
+        return getOrderprice() * getCount();
+    }
+
 
 }

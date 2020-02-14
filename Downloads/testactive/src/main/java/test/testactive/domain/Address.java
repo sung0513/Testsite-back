@@ -7,8 +7,8 @@ import javax.persistence.Embedded;
 @Embeddable
 public class Address {
 
-    private  String zipcode;
-    private  String street;
+    private String zipcode;
+    private String street;
 
     protected Address() {
 
@@ -16,6 +16,6 @@ public class Address {
 
     public Address(String zipcode, String street) {
         this.zipcode = zipcode;
-        this.street  = street;
+        this.street = street;
     }
 }

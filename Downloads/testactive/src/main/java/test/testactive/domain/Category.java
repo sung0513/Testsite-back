@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 
 public class Category {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
 
     private Long id;
@@ -24,8 +25,8 @@ public class Category {
 
     @ManyToMany
     @JoinTable(name = "category_item",
-            joinColumns =@JoinColumn(name = "category_id"),
-            inverseJoinColumns =@JoinColumn(name = "food_id"))
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "food_id"))
     private List<Food> foods = new ArrayList();
 
     @ManyToOne
@@ -35,6 +36,14 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "parent")
+    private List<Category> child = new ArrayList<>();
+
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this); }
 
 }
+
+
 

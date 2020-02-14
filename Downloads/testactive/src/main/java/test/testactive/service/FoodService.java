@@ -17,20 +17,21 @@ import java.util.List;
 public class FoodService {
 
 
-    @Autowired
-    FoodRepository foodRepository;
+    private final FoodRepository foodRepository;
 
-    @Transactional
+    @Transactional //redaOnly 일경우 저장이안됨요
     public void saveFood(Food food) {
         foodRepository.save(food);
     }
-
     public List<Food> findFoods() {
-        return FoodRepository.findAll();
+        return foodRepository.findAll();
     }
 
-    public Food find(Long foodId) {
-        return FoodRepository.find(foodId);
+    public Food findOne(Long foodId) {
+        return foodRepository.findOne(foodId);
     }
+
+
 
 }
+

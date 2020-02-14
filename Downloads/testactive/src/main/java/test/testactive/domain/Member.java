@@ -5,28 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 public class Member {
 
-    @Id@GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
-    @OneToMany(mappedBy = "member", fetch=FetchType.LAZY)
-    private Order order;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Order> order = new ArrayList<>();
 
     private String name;
     @Embedded
-    private  Address address;
+    private Address address;
 
 
     @Embedded
-    private  Coupon coupon;
-
-
-
-
+    private Coupon coupon;
 
 }
