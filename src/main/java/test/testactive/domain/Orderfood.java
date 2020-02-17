@@ -28,6 +28,8 @@ public class Orderfood {
 
     private int count;
 
+    private  int discount;
+
     protected Orderfood() {
 
     }
@@ -50,8 +52,9 @@ public class Orderfood {
     }
 
     //총가
+
     public int getTotalPrice() {
-        return getOrderprice() * getCount();
+        return getOrderprice() * getCount()-getDiscount();
     }
 
 
