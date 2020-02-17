@@ -16,11 +16,15 @@ public class MemberRepository {
     private final EntityManager em;
 
     public void save(Member member) {
+
         em.persist(member);
+
     }
 
     public Member findOne(Long id) {
+
         return em.find(Member.class, id);
+
     }
 
     public List<Member> findAll() {

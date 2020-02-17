@@ -12,21 +12,17 @@ import java.util.List;
 @Getter
 @Setter
 public class Member {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> order = new ArrayList<>();
-
     private String name;
     @Embedded
     private Address address;
-
-
     @Embedded
     private Coupon coupon;
 
 }
+
