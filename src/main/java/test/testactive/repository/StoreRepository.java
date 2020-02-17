@@ -27,15 +27,11 @@ public class StoreRepository {
         Root<Store> s = cq.from(Store.class);
         List<Predicate> criteria = new ArrayList<Predicate>();
 
-        if (StringUtils.hasText(store.getName()))
-
-            Join<Store, Order>
+        if (StringUtils.hasText(store.getName())) {
+                Predicate info =
+                        cb.equal(s.get("storeInfo") , Store.class);
+                criteria.add(info);
 
         }
-
-
-    }
-
-
 
 }
