@@ -41,14 +41,12 @@ public class Orderfood {
         orderfood.setFood(food);
         orderfood.setOrderprice(orderprice);
         orderfood.setCount(count);
-
-        food.removeStock(count);
         return orderfood;
     }
 
 
     public void cancel() {
-        getFood().addStock(count);
+        getOrder().Stock(count);
     }
 
     //총가

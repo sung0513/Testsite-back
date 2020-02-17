@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
 
+import java.util.List;
+
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 
@@ -33,6 +35,8 @@ public class MemberServiceTest {
 
 
         Long saveId = memberService.SingUp(member);
+
+        List<Member> memberList = memberRepository.findAll();
 
         assertEquals(member, memberRepository.findOne(saveId));
     }

@@ -11,6 +11,7 @@ import test.testactive.repository.MemberRepository;
 import java.util.List;
 
 @Service
+
 @Transactional(readOnly = true)
 public class MemberService {
 

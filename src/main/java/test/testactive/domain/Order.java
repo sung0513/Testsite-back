@@ -3,6 +3,7 @@ package test.testactive.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import test.testactive.exeception.NotEnoughStockException;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,6 +31,8 @@ public class Order {
     private Delivery delivery;
 
     private LocalDateTime orderDate;
+
+    private int stockQuantity;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
@@ -98,6 +101,15 @@ public class Order {
 
         return totalPrice;
 
+    }
+    public void Stock(int quantity) //+, - 둘다 해당함수 불러옴
+    {
+        this.stockQuantity += quantity; //취소버튼을 누를경우 -1값이 넘어간다
+        if (stockQuantity == 0) {
+            throw new NotEnoughStockException("non click sub");
+        } else if (stockQuantity >= 100) {
+            throw new NotEnoughStockException("non click add");
+        }
     }
 
 

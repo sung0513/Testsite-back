@@ -35,7 +35,6 @@ public class OrderService {
     @Transactional
     public Long order(Long memberId, Long foodId, int count) {
 
-
         //member food의 각각의 엔티티 조회 id로
         Member member = memberRepository.findOne(memberId);
         Food food = foodRepository.findOne(foodId);

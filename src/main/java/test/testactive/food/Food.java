@@ -25,19 +25,9 @@ public abstract class Food {
 
     private String name;
     private int price;
-    private int stockQuantity;
 
     @ManyToMany(mappedBy = "foods")
     private List<Category> categories = new ArrayList();
 
-    //==비즈니스 로직== 장바구니//
-    public void Stock(int quantity) //+, - 둘다 해당함수 불러옴
-    {
-        this.stockQuantity += quantity; //취소버튼을 누를경우 -1값이 넘어간다
-        if (stockQuantity == 0) {
-            throw new NotEnoughStockException("non click sub");
-        } else if (stockQuantity >= 100) {
-            throw new NotEnoughStockException("non click add");
-        }
-    }
+
 }
