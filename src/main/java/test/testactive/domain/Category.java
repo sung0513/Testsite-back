@@ -1,6 +1,7 @@
 package test.testactive.domain;
 
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.Getter;
 import lombok.Setter;
 import test.testactive.food.Food;
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 
-public class Category {
+public class Category extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

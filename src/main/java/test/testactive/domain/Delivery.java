@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter@Setter
 
-public class Delivery {
+public class Delivery extends BaseTimeEntity {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "delivery_id")

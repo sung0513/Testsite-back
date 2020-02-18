@@ -9,11 +9,11 @@ import javax.persistence.*;
 
 @Entity
 @Getter@Setter
-public class Store {
+public class Store extends BaseTimeEntity {
 
 
     @Id@GeneratedValue
-    @Column(name = "store_id")
+    @Column(name = "storse_id")
     private Long id;
 
     @Column(name = "store_name")
