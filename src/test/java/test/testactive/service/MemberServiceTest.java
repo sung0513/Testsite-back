@@ -37,8 +37,9 @@ public class MemberServiceTest {
 
         assertEquals(member, memberRepository.findOne(saveId));
 
+
     }
-    List<Member> memberList = memberRepository.findAll();
+
 
 
 
