@@ -30,7 +30,7 @@ public class StoreService {
 
         Store store = storeRepository.findOne(storeId);
 
-        //이것을 orderRepository에서 받아와 주문을 저장한다.
+        //이것을 storeRepository에서 받아와 주문을 저장한다.
         storeRepository.save(store);
 
         //그래서 주문의 id를 가져와 반환한다. 각각의 정보를 다 담아서

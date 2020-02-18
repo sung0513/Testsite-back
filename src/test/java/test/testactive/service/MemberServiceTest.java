@@ -9,10 +9,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
