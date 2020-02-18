@@ -55,6 +55,7 @@ public class OrderRepository {
         TypedQuery<Order> query =
                 em.createQuery(cq).setMaxResults(100);
         return query.getResultList();
+
     }
 
 }

@@ -82,11 +82,13 @@ public class Order {
         if(delivery.getStatus() == DeliveryStatus.ARRIVE) {
             throw new IllegalStateException("출발은 상태에서는 취소 하실 수" +
                     "없습니다.");
-        }
+        }  // 1순위 예외처리 변경
+
         this.setStatus(DeliveryStatus.CANCEL);
         for(Orderfood orderfood : orderfoods) {
             orderfood.cancel();
         }
+        return;
     }
 
     /**

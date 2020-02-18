@@ -33,13 +33,12 @@ public class MemberServiceTest {
         Member member = new Member();
         member.setName("세팅");
 
-
         Long saveId = memberService.SingUp(member);
 
-        List<Member> memberList = memberRepository.findAll();
-
         assertEquals(member, memberRepository.findOne(saveId));
+
     }
+    List<Member> memberList = memberRepository.findAll();
 
 
 

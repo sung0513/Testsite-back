@@ -3,6 +3,7 @@ package test.testactive.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import test.testactive.domain.Order;
 import test.testactive.domain.Store;
@@ -21,6 +22,15 @@ public class StoreRepository {
 
     @PersistenceContext
     EntityManager em;
+
+
+    @Transactional
+    public void save(Store store) {
+        em.persist(store);
+    }
+    public  Store findOne(Long id) {
+        return em.find(Store.class, id);
+    }
 
     public List<Store> findStore(Store store) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
