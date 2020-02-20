@@ -1,8 +1,12 @@
 package test.testactive.food;
 
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import test.testactive.domain.BaseTimeEntity;
 import test.testactive.domain.Category;
 import test.testactive.exeception.NotEnoughStockException;
 
@@ -15,7 +19,8 @@ import java.util.List;
 @DiscriminatorColumn(name = "Ftype")
 @Getter
 @Setter
-public abstract class Food {
+@NoArgsConstructor //생성자 추가
+public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
 
 
     @Id
@@ -29,5 +34,10 @@ public abstract class Food {
     @ManyToMany(mappedBy = "foods")
     private List<Category> categories = new ArrayList();
 
+    @Builder // 값변경.
+    public Food(String name, int price) {
+        this.name = name;
+        this.price = price;
 
+    }
 }

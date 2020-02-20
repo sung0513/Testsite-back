@@ -1,6 +1,7 @@
 package test.testactive.repository;
 
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import test.testactive.food.Food;
@@ -13,6 +14,7 @@ import java.util.List;
 public class FoodRepository {
 
     private final EntityManager em;
+    private Food food;
 
 
     public void save(Food food) {
@@ -34,6 +36,5 @@ public class FoodRepository {
         return em.createQuery("select f from Food f", Food.class)
                 .getResultList();
     }
-
 
 }

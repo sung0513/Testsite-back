@@ -2,9 +2,11 @@ package test.testactive.config.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.filters.HttpHeaderSecurityFilter;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import test.testactive.domain.user.Role;
@@ -17,7 +19,7 @@ public class SecurityConfig extends
 
     private final CustomOauth2UserService customOAuth2UserService;
 
-    @Override
+//    @Override 오류시 컴파일에러를 뜰수있게함.
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .csrf().disable()
@@ -26,8 +28,9 @@ public class SecurityConfig extends
 
                 .authorizeRequests()// url별 관리를 설정하는 옵션의 시작점 ; 해당옵션이 실행되어야지 matchers실행 가능
 
-                // '/'등 지정된 url : 전체열람권한 , "api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
+                // '/'등 지정된 url : 전체열람권한 ,
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()//권한관리대상 지정옵션
+                //"api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                 .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다
 
