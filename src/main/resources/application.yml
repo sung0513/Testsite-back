@@ -9,7 +9,7 @@ spring:
   datasource:
     platform: h2
     url: jdbc:h2:tcp://localhost/~/testsite
-    username: insung
+    username: sa
     password:
     driver-class-name: org.h2.Driver
   jpa:

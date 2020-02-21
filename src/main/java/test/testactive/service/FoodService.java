@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.food.Food;
+import test.testactive.food.Food2Repository;
 import test.testactive.repository.FoodRepository;
+import test.testactive.request.FoodSaveRequestDto;
 
 import java.util.List;
 
@@ -17,11 +19,12 @@ import java.util.List;
 public class FoodService {
 
 
+    private final Food2Repository food2Repository;
     private final FoodRepository foodRepository;
 
     @Transactional //redaOnly 일경우 저장이안됨요
-    public void saveFood(Food food) {
-        foodRepository.save(food);
+    public Long save(FoodSaveRequestDto foodSaveRequestDto) {
+        return food2Repository.save(foodSaveRequestDto.toEntity()).getId();
     }
     public List<Food> findFoods() {
         return foodRepository.findAll();
