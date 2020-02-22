@@ -31,11 +31,9 @@ public class Orderfood extends BaseTimeEntity {
     private  int discount;
 
     protected Orderfood() {
-
     }
 
     //같은 로직만 적용이 되도록 막아놓기 위한 코드임 ->
-
     public static Orderfood createOrderfood(Food food, int orderprice, int count ) {
         Orderfood orderfood = new Orderfood();
         orderfood.setFood(food);

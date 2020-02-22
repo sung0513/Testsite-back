@@ -22,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor //생성자 추가
 public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동으로 인덱스 ++ 만드는것
     @Column(name = "food_id")

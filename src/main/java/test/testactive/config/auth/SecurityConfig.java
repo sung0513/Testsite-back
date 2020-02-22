@@ -25,9 +25,7 @@ public class SecurityConfig extends
                 .csrf().disable()
                 .headers().frameOptions().disable() //h2콘솔 화면사용을위해 해당옵션 비활성화
                 .and()
-
                 .authorizeRequests()// url별 관리를 설정하는 옵션의 시작점 ; 해당옵션이 실행되어야지 matchers실행 가능
-
                 // '/'등 지정된 url : 전체열람권한 ,
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()//권한관리대상 지정옵션
                 //"api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
@@ -35,7 +33,6 @@ public class SecurityConfig extends
                 .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다
 
                 .and()
-
                 .logout()
                 .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
                 .and()

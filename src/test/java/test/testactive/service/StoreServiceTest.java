@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Store;
-import test.testactive.repository.MemberRepository;
 import test.testactive.repository.StoreRepository;
+
 
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)

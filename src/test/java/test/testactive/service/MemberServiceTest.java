@@ -1,6 +1,5 @@
 package test.testactive.service;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
@@ -28,19 +29,13 @@ public class MemberServiceTest {
 
     @Test
     public void testmember() throws Exception {
-
-
         Member member = new Member();
         member.setName("세팅");
-
         Long saveId = memberService.SingUp(member);
-
         assertEquals(member, memberRepository.findOne(saveId));
 
 
     }
-
-
 
 
     @Test(expected = IllegalStateException.class)
@@ -57,9 +52,9 @@ public class MemberServiceTest {
     }
 
     @Test
-    public void input_BaseTimeEntity(){
+    public void input_BaseTimeEntity() {
         //given
-        LocalDateTime now = LocalDateTime.of(2020,2,17,0,0,0);
+        LocalDateTime now = LocalDateTime.of(2020, 2, 17, 0, 0, 0);
         Member member1 = new Member();
         member1.setName("pizza");
         Member member2 = new Member();
@@ -70,7 +65,7 @@ public class MemberServiceTest {
 
         Member member = MemberList.get(0);
 
-        System.out.println(">>>>>>>>>>>>> createDate = "+member.getCreatedDate()+", modifiedDate =" + member.getModifiedDate());
+        System.out.println(">>>>>>>>>>>>> createDate = " + member.getCreatedDate() + ", modifiedDate =" + member.getModifiedDate());
 
         assertThat(member.getCreatedDate()).isAfter(now);
         assertThat(member.getModifiedDate()).isAfter(now);
