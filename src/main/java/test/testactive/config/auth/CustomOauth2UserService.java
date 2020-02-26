@@ -17,6 +17,7 @@ import test.testactive.domain.user.User;
 import test.testactive.domain.user.UserRepository;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
+
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
@@ -31,7 +32,7 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
     private final HttpSession httpSession;
 
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.
                 loadUser(userRequest);
@@ -45,14 +46,14 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
                 userNameAttributeName, oAuth2User.getAttributes()); // OAuthAttributes : OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담은 클래스이다.
 
 
-
         User user = saveOrUpdate(attributes);
-        httpSession.setAttribute("user", new SessionUser(user)); // 세션에 사용자 정보를 저장하기위한 dto클래스이다 user클래스 사용 x
+        httpSession.setAttribute("user", new SessionUser()); // 세션에 사용자 정보를 저장하기위한 dto클래스이다 user클래스 사용 x
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey());
+
     }
 
 

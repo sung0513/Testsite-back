@@ -37,10 +37,10 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING) //db에 저장시 이넘값을 어떤형태로 저장할지 결정한다. default ; int
     @Column(nullable = false)
-    private Role role; //이넘클래스 상속안됨
+    private transient Role role; //이넘클래스 상속안됨
 
     @Builder //값을 넣어주는 어노테이션
-    public User(String name, String email, String picture, Role role){
+    public User(String name, String email, String picture, Role role) {
 
         this.name = name;
         this.email = email;
@@ -49,14 +49,14 @@ public class User extends BaseTimeEntity {
 
     }
 
-    public User update(String name, String picture){
+    public User update(String name, String picture) {
         this.name = name;
         this.picture = picture;
 
         return this;
     }
 
-    public String getRoleKey(){
-        return this.role.getKey();
-    }
+    public String getRoleKey() {
+        return this.role.ge
+        }
 }
