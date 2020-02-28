@@ -13,6 +13,7 @@ package test.testactive.service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Order;
 import test.testactive.domain.Store;
@@ -29,11 +30,12 @@ import java.util.List;
 @Setter
 @Transactional(readOnly = true)
 @AllArgsConstructor
-public class Checklist {
+public class ChecklistService {
+
     OrderRepository orderRepository;
     FoodRepository foodRepository;
     StoreRepository storeRepository;
-//    private List<Order> order = new ArrayList<>();
+    private List<Order> list = new ArrayList<>();
 
     @Transactional
     public Long Checklist(Long orderId, Long foodId, Long storeId) {
@@ -44,27 +46,31 @@ public class Checklist {
         Food food = foodRepository.findOne(foodId);
         Store store = storeRepository.findOne(storeId);
 
+
         storeRepository.save(store);
         orderRepository.save(order);
         foodRepository.save(food);
 
+
         return  store.getId(); //스토어정보
 
-
-        store.getAddress();
-        store.getName();
-        store.getS_coupon();
-        food.getName();
-        food.getPrice();
-        order.getDelivery(); //딜리버리상태를보여줌
+//        store.getAddress();
+//        store.getName();
+//        store.getS_coupon();
+//        food.getName();
+//        food.getPrice();
+//        order.getDelivery(); //딜리버리상태를보여줌
 
         //        storeRepository.save(store);
-//        return  store.getId();
+//        return  store.getId();;.
     }
     // 리스트 서비스가 필요가 없다 스토어서비스, 오더서비스, 푸드서비스 에서 전부 가져온다.
 
-
-
-    food
-
 }
+
+
+// 내정보 : 주소랑, 여태까지주문햇던것들, 이름 부가능,
+
+// 현 재 상 황 : 가게정보랑, 음식이름, 주소 db에저장할필요가 없다. 고
+
+

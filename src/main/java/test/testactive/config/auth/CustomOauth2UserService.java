@@ -43,8 +43,9 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.of(registrationId,
 
                 userNameAttributeName, oAuth2User.getAttributes()); // OAuthAttributes : OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담은 클래스이다.
+//jwt 이용해보쟝 ㅋㅋ 정보넘기기. ㅎㅋㅎㅋ jwt = json web tocken
 
-
+// 정보를넘기면 토큰반환. 토큰을가지고 값을 변경
 
         User user = saveOrUpdate(attributes);
         httpSession.setAttribute("user", new SessionUser(user)); // 세션에 사용자 정보를 저장하기위한 dto클래스이다 user클래스 사용 x
@@ -55,7 +56,7 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
                 attributes.getNameAttributeKey());
     }
 
-
+//필터기반?
     private User saveOrUpdate(OAuthAttributes attributes) {
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))

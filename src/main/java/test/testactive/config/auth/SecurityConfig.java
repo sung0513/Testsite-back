@@ -3,7 +3,10 @@ package test.testactive.config.auth;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.filters.HttpHeaderSecurityFilter;
 //import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
+
 import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -11,15 +14,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import test.testactive.domain.user.Role;
 
-
+@Configuration
 @RequiredArgsConstructor
-@EnableWebSecurity //error
+@EnableWebSecurity
 public class SecurityConfig extends
-        WebSecurityEnablerConfiguration {
+//        WebSecurityEnablerConfiguration { //404
+    WebSecurityConfigurerAdapter{
 
     private final CustomOauth2UserService customOAuth2UserService;
 
-//    @Override 오류시 컴파일에러를 뜰수있게함.
+
+    // 정수기판매원 kiminsung  : HttpSecurity 해결 좀;
+    @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .csrf().disable()
@@ -30,18 +36,20 @@ public class SecurityConfig extends
 
                 // '/'등 지정된 url : 전체열람권한 ,
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()//권한관리대상 지정옵션
-                //"api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
+//                "api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-                .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다
+                .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다3403
 
                 .and()
 
-                .logout()
-                .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
+                    .logout()
+                        .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
                 .and()
-                .oauth2Login() //oauth2로그인 기능에 대한 여러설정의 진입점
-                .userInfoEndpoint() // oauth2 로그인 성공 이후 사용자 정보를 가져올때의 설정들을 담당
-                .userService(customOAuth2UserService); //소셜로그인 성공시 후속조치를 진행할 usersevice 인터페이스의 구현체 등록
+                    .oauth2Login() //oauth2로그인 기능에 대한 여러설정의 진입점
+                        .userInfoEndpoint() // oauth2 로그인 성공 이후 사용자 정보를 가져올때의 설정들을 담당
+                             .userService(customOAuth2UserService); //소셜로그인 성공시 후속조치를 진행할 usersevice 인터페이스의 구현체 등록
         // 리소스서버(소셜서비스들)에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능들을 명시할수 있다.
     }
 }
+
+//네이버 카카오 추가
