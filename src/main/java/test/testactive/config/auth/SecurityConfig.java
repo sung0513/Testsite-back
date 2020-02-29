@@ -1,33 +1,51 @@
 package test.testactive.config.auth;
-
+/*
+해당 클래스 역할
+1. 스프링 시큐리티 활성화
+2. x-frame-options 비활성화
+3. URL별 권한관리
+4. 로그인 , 로그아웃시 구현체 명시
+ */
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.HttpHeaderSecurityFilter;
-//import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
 
-import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import test.testactive.domain.user.Role;
 
-@Configuration
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import sun.security.util.ManifestDigester;
+import test.testactive.domain.user.Role;
+import test.testactive.domain.user.UserService;
+import test.testactive.service.MemberService;
+
+import static org.hibernate.criterion.Restrictions.and;
+
 @RequiredArgsConstructor
-@EnableWebSecurity
+@EnableWebSecurity //spring 시큐리티 설정 활성화
 public class SecurityConfig extends
 //        WebSecurityEnablerConfiguration { //404
-    WebSecurityConfigurerAdapter{
-
-    private final CustomOauth2UserService customOAuth2UserService;
+    WebSecurityConfigurerAdapter{ //bean 주입이안됨.
 
 
+    UserService UserService;
+    private final CustomOauth2UserService customOauth2UserService;
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     // 정수기판매원 kiminsung  : HttpSecurity 해결 좀;
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
+                //시큐리티 x-frame-options 응답헤더, 클릭잭킹
+                //https://www.keycdn.com/blog/x-frame-options
                 .csrf().disable()
                 .headers().frameOptions().disable() //h2콘솔 화면사용을위해 해당옵션 비활성화
                 .and()
@@ -41,15 +59,34 @@ public class SecurityConfig extends
                 .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다3403
 
                 .and()
-
                     .logout()
-                        .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
+                    .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
+                    .invalidateHttpSession(true)
                 .and()
+                //자체로그인폼
+                    .formLogin()
+                    .loginPage("/user/login")
+                    .defaultSuccessUrl("user/login/result")
+                    .permitAll()
+                .and()
+                    .exceptionHandling().accessDeniedPage("/user/denied")
+                .and()
+                //네이버 구글
                     .oauth2Login() //oauth2로그인 기능에 대한 여러설정의 진입점
                         .userInfoEndpoint() // oauth2 로그인 성공 이후 사용자 정보를 가져올때의 설정들을 담당
-                             .userService(customOAuth2UserService); //소셜로그인 성공시 후속조치를 진행할 usersevice 인터페이스의 구현체 등록
+                             .userService(customOauth2UserService); //소셜로그인 성공시 후속조치를 진행할 usersevice 인터페이스의 구현체 등록
         // 리소스서버(소셜서비스들)에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능들을 명시할수 있다.
+
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.userDetailsService(UserService).passwordEncoder(passwordEncoder());
     }
 }
+
+
+
+
 
 //네이버 카카오 추가

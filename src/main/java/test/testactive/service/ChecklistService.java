@@ -13,58 +13,64 @@ package test.testactive.service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Check;
+//import org.hibernate.annotations.Check;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
+import test.testactive.domain.Check;
+import test.testactive.domain.Member;
 import test.testactive.domain.Order;
 import test.testactive.domain.Store;
 import test.testactive.food.Food;
 import test.testactive.repository.FoodRepository;
+import test.testactive.repository.MemberRepository;
 import test.testactive.repository.OrderRepository;
 import test.testactive.repository.StoreRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static test.testactive.domain.DeliveryStatus.ARRIVE;
+
 //open jdk 1.8v
 @Getter
 @Setter
 @Transactional(readOnly = true)
 @AllArgsConstructor
-public class ChecklistService {
+public class ChecklistService<CheckList> {
+//    MemberRepository memberRepository;
+//    OrderRepository orderRepository;
+//    FoodRepository foodRepository;
+//    StoreRepository storeRepository;
+//
+//    @Transactional
+//    public List<Member> findMembers() {
+//        return memberRepository.findAll();
+//    }
+//
+//    @Transactional
+//    public List<Order> findOrder(Long id) {
+//        Order order =  orderRepository.findOne(id);
+//        return order;
+//    }
+//
+//    @Transactional
+//    public List<Store> findStore() {
+//        return storeRepository.findAll();
+//    }
+//
+//    @Transactional
+//    public List<Food> findFood() {
+//        return foodRepository.findAll();
+//    }
 
-    OrderRepository orderRepository;
-    FoodRepository foodRepository;
-    StoreRepository storeRepository;
-    private List<Order> list = new ArrayList<>();
 
-    @Transactional
-    public Long Checklist(Long orderId, Long foodId, Long storeId) {
-
-        //member food의 각각의 엔티티 조회 id로
-        //엔티티조회로 값을 모두가져옴
-        Order order = orderRepository.findOne(orderId);
-        Food food = foodRepository.findOne(foodId);
-        Store store = storeRepository.findOne(storeId);
+    private List<Check> check = new ArrayList();
 
 
-        storeRepository.save(store);
-        orderRepository.save(order);
-        foodRepository.save(food);
-
-
-        return  store.getId(); //스토어정보
-
-//        store.getAddress();
-//        store.getName();
-//        store.getS_coupon();
-//        food.getName();
-//        food.getPrice();
-//        order.getDelivery(); //딜리버리상태를보여줌
-
-        //        storeRepository.save(store);
-//        return  store.getId();;.
-    }
-    // 리스트 서비스가 필요가 없다 스토어서비스, 오더서비스, 푸드서비스 에서 전부 가져온다.
+    FoodService foodService;
+    MemberService MemberService;
+    OrderService orderService;
+    StoreService storeService;
 
 }
 

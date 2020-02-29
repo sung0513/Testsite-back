@@ -1,6 +1,5 @@
 {{>layout/header}}
 <h1>저기요 요기요 금기요</h1>
-
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6">
@@ -11,10 +10,12 @@
             {{/userName}}
             {{^userName}}
                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+                <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
             {{/userName}}
         </div>
     </div>
 </div>
 <br>
+
 <!-- 목록 출력 영역 -->
 {{>layout/footer}}
