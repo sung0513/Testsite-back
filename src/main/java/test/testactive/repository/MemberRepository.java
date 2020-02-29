@@ -3,7 +3,9 @@ package test.testactive.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import test.testactive.domain.Address;
 import test.testactive.domain.Member;
+import test.testactive.domain.Order;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -36,6 +38,11 @@ public class MemberRepository {
     public List<Member> findByName(String name) {
         return  em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
+                .getResultList();
+    }
+
+    public List<Address> b_findAll(){
+        return em.createQuery("select 'STREET','ZIPCODE' from  Member", Address.class) //address에서가져오므로
                 .getResultList();
     }
     // Member의 name찾아서 불러오는 것

@@ -18,8 +18,8 @@ public class StoreListResponseDto {
 
 
     public StoreListResponseDto(Store entity){
-        this.name = entity.getName();
-        this.address = entity.getAddress(); // 푸드이름 ( 가게이름 )
+        this.name = entity.getName(); //가게이름
+        this.address = entity.getAddress(); // ( 가게 주소 )
         this.s_coupon = entity.getS_coupon(); //해당가게에서 어떤쿠폰을 사용했는지 보여주기
         this.tel = entity.getTel(); //전화번호 보여준다
     }

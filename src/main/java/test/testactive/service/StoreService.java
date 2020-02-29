@@ -8,11 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.*;
 import test.testactive.food.Food;
 import test.testactive.repository.StoreRepository;
+import test.testactive.request.FoodSaveRequestDto;
+import test.testactive.request.StoreSaveRequestDto;
+import test.testactive.response.OrderListResponseDto;
+import test.testactive.response.StoreListResponseDto;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,7 +28,7 @@ public class StoreService {
     private final StoreRepository storeRepository;
 
     /**
-        store정보를 가져오는 메서드 작성
+        DB에서 store정보를 가져오는 메서드 작성
      */
 
     @Transactional
@@ -34,8 +40,16 @@ public class StoreService {
         storeRepository.save(store);
 
         //그래서 주문의 id를 가져와 반환한다. 각각의 정보를 다 담아서
-        return  store.getId();
+        return  store.getId(); //스토어정보
 
     }
+
+    @Transactional(readOnly =true)
+    public List<StoreListResponseDto> b_findStores(){return storeRepository.b_findAll().stream().map(StoreListResponseDto::new).collect(Collectors.toList()); }
+
+    /**
+            웹에서 사용자가 입력한 정보를 보여주는 메서드 작성
+     */
+
 
 }

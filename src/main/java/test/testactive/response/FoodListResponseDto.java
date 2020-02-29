@@ -16,8 +16,8 @@ public class FoodListResponseDto {
     private LocalDateTime modifiedDate;
 
     public FoodListResponseDto(Food entity){
-        this.id = entity.getId();
-        this.name = entity.getName(); // 푸드이름 ( 가게이름 )
+        this.id = getId();
+        this.name = entity.getName(); // 푸드이름
         this.price = entity.getPrice(); // 가격
     }
 }

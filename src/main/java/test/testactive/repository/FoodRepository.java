@@ -31,9 +31,14 @@ public class FoodRepository {
 
     }
 
-    //
+    // 푸드값 반환.
     public List<Food> findAll() {
         return em.createQuery("select f from Food f", Food.class)
+                .getResultList();
+    }
+
+    public List<Food> b_findAll(){
+        return em.createQuery("select 'FOOD_ID', 'PRICE', 'NAME'  from Food f", Food.class)
                 .getResultList();
     }
 

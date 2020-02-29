@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import test.testactive.domain.Member;
 import test.testactive.domain.Order;
 import test.testactive.domain.OrderSearch;
+import test.testactive.food.Food;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -58,6 +59,10 @@ public class OrderRepository {
 
     }
 
+    public List<Order> b_findAll(){
+        return em.createQuery("select 'STATUS' from  Order", Order.class)
+                .getResultList();
+    }
 }
 
 
