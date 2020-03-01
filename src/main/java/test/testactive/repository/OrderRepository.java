@@ -60,7 +60,7 @@ public class OrderRepository {
     }
 
     public List<Order> b_findAll(){
-        return em.createQuery("select 'STATUS' from  Order", Order.class)
+        return em.createQuery("select 'modified_date','STATUS' from  Order", Order.class)
                 .getResultList();
     }
 }
