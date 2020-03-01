@@ -15,16 +15,22 @@ public class Delivery extends BaseTimeEntity {
     @Column(name = "delivery_id")
     private  Long id;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery") //mappedby : n:n 매핑시에 owner이 누군지 알려준다.
     private Order order;
+
+    @OneToOne(mappedBy = "delivery")
+    private Checklist checklist;
+
 
     @Embedded
     private Address address;
 
-    @Embedded
+    @Enumerated(EnumType.STRING) // 쿠폰값 넘김
     private  Coupon coupon;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //배달 정보넘김
     private DeliveryStatus status;
+
+
 
 }

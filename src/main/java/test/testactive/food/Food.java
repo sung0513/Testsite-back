@@ -6,8 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import test.testactive.domain.BaseTimeEntity;
-import test.testactive.domain.Category;
+import test.testactive.domain.*;
 import test.testactive.exeception.NotEnoughStockException;
 
 import javax.persistence.*;
@@ -34,10 +33,19 @@ public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
     @ManyToMany(mappedBy = "foods")
     private List<Category> categories = new ArrayList();
 
+    @ManyToOne(fetch = FetchType.LAZY) //member 과 order을 n:1로 매핑시킨다
+    @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
+    private Member member;
+
+
+    @OneToOne(mappedBy = "food")
+    private Checklist checklist;
+
+
     @Builder // 값변경.
     public Food(String name, int price) {
         this.name = name;
         this.price = price;
-
     }
+
 }
