@@ -26,7 +26,7 @@ public class Checklist extends BaseTimeEntity {
     private Long id;
 
 
-    //현재 주소 2개
+    //현재 주소 2개, zipcode
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "street")
     private Member member;
@@ -84,10 +84,6 @@ public class Checklist extends BaseTimeEntity {
         this.food = food;
         food.setChecklist(this);
     }
-
-
-
-
 }
 
 //member: member_id, address

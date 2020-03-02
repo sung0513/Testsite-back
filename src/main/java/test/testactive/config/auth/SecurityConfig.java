@@ -21,7 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import sun.security.util.ManifestDigester;
 import test.testactive.domain.user.Role;
-import test.testactive.domain.user.UserService;
+//import test.testactive.domain.user.UserService;
 import test.testactive.service.MemberService;
 
 import static org.hibernate.criterion.Restrictions.and;
@@ -33,7 +33,7 @@ public class SecurityConfig extends
 //    WebSecurityConfigurerAdapter{ //bean 주입이안됨.
 
 
-    UserService UserService;
+//    UserService UserService;
     private final CustomOauth2UserService customOauth2UserService;
 
 

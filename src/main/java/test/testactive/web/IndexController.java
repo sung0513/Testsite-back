@@ -11,7 +11,7 @@ import test.testactive.domain.Order;
 import test.testactive.domain.Store;
 import test.testactive.domain.user.User;
 import test.testactive.domain.user.UserDto;
-import test.testactive.domain.user.UserService;
+//import test.testactive.domain.user.UserService;
 import test.testactive.repository.OrderRepository;
 import test.testactive.request.StoreSaveRequestDto;
 import test.testactive.service.FoodService;
@@ -29,7 +29,7 @@ public class IndexController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final HttpSession httpSession;
-    private final UserService userService;
+   // private final UserService userService;
 
 
     @GetMapping("/")
