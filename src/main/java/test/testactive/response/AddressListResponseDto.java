@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 //status 는 어떻게보여줄까?...
 //내주소를 보여줌
 public class AddressListResponseDto {
-
     private String zipcode;
     private String street;
     public AddressListResponseDto(Address entity){

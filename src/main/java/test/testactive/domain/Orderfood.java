@@ -45,8 +45,12 @@ public class Orderfood extends BaseTimeEntity {
     }
 
 
-    public void cancel() {
-        getOrder().Stock(count);
+    public void cancel() { //주문중 취소
+        getOrder().cancel();
+    }
+
+    public void b_cancel(){ //장바구니에서 취소
+        getOrder().basket_cancel(count);
     }
 
     //총가

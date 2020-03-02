@@ -1,23 +1,31 @@
 package test.testactive.domain;
 
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-@Embeddable
+import javax.persistence.*;
+
+@Embeddable //H2 디비
+@Getter
+@Setter
+
+//고객 주소입력
 public class Address {
+
 
     private String zipcode;
     private String street;
 
-    protected Address() {
+    public Address() {
 
     }
 
+    @Builder
     public Address(String zipcode, String street) {
         this.zipcode = zipcode;
         this.street = street;
-
     }
 
 }

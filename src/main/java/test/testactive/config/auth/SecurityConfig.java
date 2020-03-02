@@ -8,6 +8,7 @@ package test.testactive.config.auth;
  */
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,8 +29,8 @@ import static org.hibernate.criterion.Restrictions.and;
 @RequiredArgsConstructor
 @EnableWebSecurity //spring 시큐리티 설정 활성화
 public class SecurityConfig extends
-//        WebSecurityEnablerConfiguration { //404
-    WebSecurityConfigurerAdapter{ //bean 주입이안됨.
+        WebSecurityEnablerConfiguration { //404
+//    WebSecurityConfigurerAdapter{ //bean 주입이안됨.
 
 
     UserService UserService;
@@ -41,7 +42,7 @@ public class SecurityConfig extends
         return new BCryptPasswordEncoder();
     }
     // 정수기판매원 kiminsung  : HttpSecurity 해결 좀;
-    @Override
+//    @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
                 //시큐리티 x-frame-options 응답헤더, 클릭잭킹
@@ -63,14 +64,14 @@ public class SecurityConfig extends
                     .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
                     .invalidateHttpSession(true)
                 .and()
-                //자체로그인폼
-                    .formLogin()
-                    .loginPage("/user/login")
-                    .defaultSuccessUrl("user/login/result")
-                    .permitAll()
-                .and()
-                    .exceptionHandling().accessDeniedPage("/user/denied")
-                .and()
+//                //자체로그인폼
+//                    .formLogin()
+//                    .loginPage("/user/login")
+//                    .defaultSuccessUrl("user/login/result")
+//                    .permitAll()
+//                .and()
+//                    .exceptionHandling().accessDeniedPage("/user/denied")
+//                .and()
                 //네이버 구글
                     .oauth2Login() //oauth2로그인 기능에 대한 여러설정의 진입점
                         .userInfoEndpoint() // oauth2 로그인 성공 이후 사용자 정보를 가져올때의 설정들을 담당
@@ -79,10 +80,11 @@ public class SecurityConfig extends
 
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(UserService).passwordEncoder(passwordEncoder());
-    }
+    // 자체로그인폼 패스워드숨기기
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(UserService).passwordEncoder(passwordEncoder());
+//    }
 }
 
 

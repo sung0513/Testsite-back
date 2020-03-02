@@ -37,6 +37,7 @@ public class OrderRepository {
 
         List<Predicate> criteria = new ArrayList<Predicate>();
 
+        //?
         if (orderSearch.getDeliveryStatus() != null) {
             Predicate status =
                     cb.equal(o.get("status"), orderSearch.getDeliveryStatus());

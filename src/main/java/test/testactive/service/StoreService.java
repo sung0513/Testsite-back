@@ -10,7 +10,6 @@ import test.testactive.food.Food;
 import test.testactive.repository.StoreRepository;
 import test.testactive.request.FoodSaveRequestDto;
 import test.testactive.request.StoreSaveRequestDto;
-import test.testactive.response.OrderListResponseDto;
 import test.testactive.response.StoreListResponseDto;
 
 import javax.persistence.Column;

@@ -1,29 +1,36 @@
 package test.testactive.service;
 
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import test.testactive.domain.Member;
-import test.testactive.domain.Order;
+import test.testactive.domain.*;
 import test.testactive.food.Food;
 import test.testactive.food.Food2Repository;
-import test.testactive.repository.FoodRepository;
-import test.testactive.repository.MemberRepository;
-import test.testactive.repository.OrderRepository;
+import test.testactive.repository.*;
 import test.testactive.request.FoodSaveRequestDto;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.print.DocFlavor;
 import java.util.List;
 
+import static java.lang.Enum.valueOf;
+import static jdk.nashorn.internal.runtime.regexp.joni.constants.Arguments.NON;
 import static org.junit.Assert.assertEquals;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static test.testactive.domain.DeliveryStatus.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
+
+
 //멤버 : street, id;
 //order : stock_quantity
 //food : price
@@ -47,42 +54,70 @@ public class CheckListTest {
     FoodService foodService;
 
     @Autowired
-    Food2Repository food2Repository;
+    CheckRepository checkRepository;
 
+
+
+    @Autowired
+    StoreRepository storeRepository;
+
+    @Autowired
+    DeliveryRepository deliveryRepository;
+
+    @Autowired
+    ChecklistService checklistService;
 
 
     @Test
     public void alltest() throws Exception {
 
+        String street = "현우";
+        String Foodname = "치킨";
+        int price = 1000;
+        int qu = 3;
+        String store_name = "멕시카나";
+
         Member member = new Member();
-        member.setName("현우");
-
-        Long saveId = memberService.SingUp(member);
-
-        assertEquals(member, memberRepository.findOne(saveId)); //member 저장
+        member.setName(street);
 
 
-        //오류수정 foodsaverequestdto
+        Long memberId = memberService.SingUp(member);
+//        ------------------------------------------------------------
 
-//        FoodSaveRequestDto foodSaveRequestDto = new FoodSaveRequestDto();
-        String name = "치킨";
+        Food food = new Food();
+        food.setPrice(price);
+        Food foodId = foodService.findOne(food.getId()); //확인해주기
 
-        food2Repository.save(Food.builder()
-                .name(name)
-                .price(100)
-                .build());
+//----------------------------------------------------------------------
+
+        //status는어떡해추가할것인가...
+        Order order = new Order(); //배송량
+        order.setStockQuantity(qu);
+        Order orderId = orderRepository.findOne(order.getId());
+
+        Store store = new Store();
+        store.setName(store_name);
+
+        Store storeId= storeRepository.findOne(store.getId());
+
+
+//        delivery.setStatus(Enum.valueOf(ARRIVE, "도착")); //이넘타입 넘기기.
+
+//        Long id = checklistService.check(memberId, foodId, storeId,orderId);
+
+        Checklist checklist = Checklist.createchecklist(member, order, store, food);
+
+        //해당값 checklistRepository에서 받아와 주문을 저장한다.
+        checkRepository.save(checklist);
 //
-//        Long foodid = foodService.save(foodSaveRequestDto);
+////        checklist.getId();
+//
+//        List<Checklist> checkList = checkRepository.findAll();
+////        Checklist checklist = checkList.get(0);
 
-        List<Food> foodList = foodRepository.findAll();
-
-        Food food = foodList.get(0);
-        assertThat(food.getName()).isEqualTo(name);
-//        assertEquals(foodSaveRequestDto, foodRepository.findOne(foodid)); //member 저장
-
+        assertThat(checklist.getFood()).isEqualTo(price); //푸드테이블확인
+        assertThat(checklist.getOrder()).isEqualTo(qu); //가격확인
 
     }
-
-
 
 }

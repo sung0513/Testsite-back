@@ -43,7 +43,8 @@ public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
 
 
     @Builder // 값변경.
-    public Food(String name, int price) {
+    public Food(Long id, String name, int price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }

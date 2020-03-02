@@ -7,6 +7,9 @@
 //
 //
 //    private String Status;
+//    private String order_datae;
+//    private String stock_quantity;
+//
 //
 //
 //

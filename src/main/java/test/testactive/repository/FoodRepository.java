@@ -1,7 +1,6 @@
 package test.testactive.repository;
 
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import test.testactive.food.Food;

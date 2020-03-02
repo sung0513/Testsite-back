@@ -2,8 +2,6 @@ spring:
   profiles:
     active: local
     include: real-oauth
-
----
   session:
     store-type: jdbc
   datasource:

@@ -2,25 +2,27 @@ package test.testactive.request;
 
 import lombok.Builder;
 import test.testactive.domain.Address;
+import test.testactive.domain.Member;
 import test.testactive.food.Food;
 
 public class MemberSaveRequestDto {
+    private int id;
+    private String name;
 
-    private String zipcode;
-    private String street;
+
 
 
     @Builder
-    public MemberSaveRequestDto(String zipcode, String street) {
-        this.zipcode = zipcode;
-        this.street = street;
+    public MemberSaveRequestDto(int id, String name) {
+        this.id = id;
+        this.name = name;
+
     }
 
-
-    public Address toEntity() {
-        return Address.builder()
-                .zipcode(zipcode)
-                .street(street)
+    public Member toEntity() {
+        return Member.builder()
+                .id(id)
+                .name(name)
                 .build();
     }
 }
