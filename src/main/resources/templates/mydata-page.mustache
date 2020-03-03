@@ -1,0 +1,36 @@
+{{>layout/header}}
+
+<h1>게시글 등록</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" class="form-control" id="name" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="price"> 아이디 </label>
+                <input type="text" class="form-control" id="user_id" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="price"> 비밀번호 </label>
+                <input type="text" class="form-control" id="password" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="price"> 주소 </label>
+                <input type="text" class="form-control" id="address" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="price"> 주문 목록 </label>
+            </div>
+        </form>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-save">수정</button>
+    </div>
+</div>
+
+{{>layout/footer}}
