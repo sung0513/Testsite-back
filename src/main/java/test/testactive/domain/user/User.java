@@ -31,6 +31,9 @@ public class User extends BaseTimeEntity {
     private String password;
 
     @Column
+    private String address;
+
+    @Column
     private String picture;
 
     @Enumerated(EnumType.STRING) //db에 저장시 이넘값을 어떤형태로 저장할지 결정한다. default ; int
