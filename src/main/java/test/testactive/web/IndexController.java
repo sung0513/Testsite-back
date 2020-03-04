@@ -50,7 +50,16 @@ public class IndexController {
     }
 
     @GetMapping("posts/mydata")
-    public String postsMyData(){
+    public String postsMyData(Model model){
+        SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
+
+        if (user != null) { // 세션에 저장된 값이 있을때만 model에 userName으로 등록한다.
+            //세션에 저장된 값이 없으면 model엔 아무런 값이 없는 상태이니 로그인 버튼이 보인다.
+            model.addAttribute("userName", user.getName());
+            model.addAttribute("userEmail", user.getEmail());
+            model.addAttribute("userPicture", user.getPicture());
+        }
+
         return "mydata-page";
     }
 //

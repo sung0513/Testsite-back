@@ -21,7 +21,7 @@ public class Delivery extends BaseTimeEntity {
     private Order order;
 
 
-    @OneToOne(mappedBy = "checklist")
+    @OneToOne(mappedBy = "delivery")
     private Checklist checklist;
 
     @Embedded
