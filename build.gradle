@@ -16,6 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+
 }
 
 dependencies {
@@ -31,4 +32,15 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testCompile("org.springframework.security:spring-security-test")
+
+	compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile('org.springframework.boot:spring-boot-starter-mustache')
+	compile('org.springframework.session:spring-session-jdbc')
+
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }

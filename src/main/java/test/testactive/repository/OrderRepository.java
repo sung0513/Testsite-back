@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import test.testactive.domain.Member;
 import test.testactive.domain.Order;
 import test.testactive.domain.OrderSearch;
+import test.testactive.food.Food;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -36,6 +37,7 @@ public class OrderRepository {
 
         List<Predicate> criteria = new ArrayList<Predicate>();
 
+        //?
         if (orderSearch.getDeliveryStatus() != null) {
             Predicate status =
                     cb.equal(o.get("status"), orderSearch.getDeliveryStatus());
@@ -58,6 +60,10 @@ public class OrderRepository {
 
     }
 
+    public List<Order> b_findAll(){
+        return em.createQuery("select 'modified_date','STATUS' from  Order", Order.class)
+                .getResultList();
+    }
 }
 
 

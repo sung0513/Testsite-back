@@ -13,6 +13,6 @@ import javax.persistence.Entity;
 public class Zokbal extends Food {
 
         private String z_zokbal;
-        private String z_taste;
+        private String z_taste; //빨간맛 꿀맛 마늘맛
 
 }

@@ -1,9 +1,9 @@
 package test.testactive.food;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import test.testactive.domain.Category;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import lombok.*;
+import test.testactive.domain.*;
 import test.testactive.exeception.NotEnoughStockException;
 
 import javax.persistence.*;
@@ -15,7 +15,9 @@ import java.util.List;
 @DiscriminatorColumn(name = "Ftype")
 @Getter
 @Setter
-public abstract class Food {
+@NoArgsConstructor
+@Embeddable
+public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
 
 
     @Id
@@ -29,5 +31,19 @@ public abstract class Food {
     @ManyToMany(mappedBy = "foods")
     private List<Category> categories = new ArrayList();
 
+    @ManyToOne(fetch = FetchType.LAZY) //member 과 order을 n:1로 매핑시킨다
+    @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
+    private Member member;
+
+
+    @OneToOne(mappedBy = "delivery")
+    private Checklist checklist;
+
+    @Builder // 값변경.
+    public Food(Long id,String name, int price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
 
 }

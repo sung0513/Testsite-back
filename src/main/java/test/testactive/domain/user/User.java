@@ -1,11 +1,6 @@
 package test.testactive.domain.user;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.apache.catalina.Role;
-import org.springframework.context.support.BeanDefinitionDsl;
+import lombok.*;
 import test.testactive.domain.BaseTimeEntity;
 
 import javax.persistence.Column;
@@ -16,10 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+//구글 or 네이버 로그인시 DB 엔티티생성
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //파라미터가없는 기본생성자를 만들어주는 어노테이션.
 @Entity
 public class User extends BaseTimeEntity {
     @Id
@@ -29,7 +24,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(length = 20, nullable = false)
     private String email;
 
     @Column
@@ -37,16 +32,11 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING) //db에 저장시 이넘값을 어떤형태로 저장할지 결정한다. default ; int
     @Column(nullable = false)
-    private transient Role role; //이넘클래스 상속안됨
-
-    @Builder //값을 넣어주는 어노테이션
-    public User(String name, String email, String picture, Role role) {
 
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
-
     }
 
     public User update(String name, String picture) {

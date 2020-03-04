@@ -1,22 +1,7 @@
 package test.testactive.domain;
 
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+public enum Coupon{
+    천원, 이천원, 삼천원;
 
-@Embeddable
-public class Coupon {
-
-        private Integer c_price;
-
-
-
-        protected Coupon() {
-
-        }
-
-    public Coupon(int c_price, int c_percent) {
-        this.c_price = c_price;
-
-    }
 }

@@ -1,14 +1,15 @@
 package test.testactive.service;
 
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
+import test.testactive.response.AddressListResponseDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -40,13 +41,16 @@ public class MemberService {
 
     public List<Member> findMembers() {
         return memberRepository.findAll();
-
     }
 
     public Member findOne(Long memberId) {
 
         return memberRepository.findOne(memberId);
     }
+
+    @Transactional(readOnly =true)
+    public List<AddressListResponseDto> b_findMembers(){return memberRepository.b_findAll().stream().map(AddressListResponseDto::new).collect(Collectors.toList()
+    ); }
 
 }
 

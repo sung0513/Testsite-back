@@ -4,17 +4,12 @@ package test.testactive.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import test.testactive.domain.Delivery;
-import test.testactive.domain.Member;
-import test.testactive.domain.Order;
-import test.testactive.domain.Orderfood;
+import test.testactive.domain.*;
 import test.testactive.food.Food;
 import test.testactive.repository.FoodRepository;
 import test.testactive.repository.MemberRepository;
 import test.testactive.repository.OrderRepository;
-import test.testactive.domain.OrderSearch;
-
-import java.util.List;
+import test.testactive.repository.StoreRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,8 +18,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
-    private  final FoodRepository foodRepository;
-
+    private final FoodRepository foodRepository;
+    private final StoreRepository storeRepository;
 
 
     /**
@@ -53,24 +48,32 @@ public class OrderService {
         orderRepository.save(order);
 
         //그래서 주문의 id를 가져와 반환한다. 각각의 정보를 다 담아서
-        return  order.getId();
+        return order.getId(); //오더정보
+
     }
     //취소
 
     @Transactional
-    public void cancelOrder(Long orderId) {
+    public void cancelOrder(Long orderId, Long foodId, Long StoreId) {
 
         //주문 내역 조회 -> 내정보에서 확인
-        Order order = orderRepository.findOne(orderId);
+        Order order = orderRepository.findOne(orderId); // STATUS
+        Food food = foodRepository.findOne(foodId); //음식이름 ,가격
+        Store store = storeRepository.findOne(StoreId); //가게이름, 번호
 
         //주문 취소 로직
-       order.cancel();
+        order.cancel();
     }
+}
+
     //검색
 //    public List<Order> findOrders(OrderSearch orderSearch) {
 //        return  orderRepository.findAll(orderSearch);
 //
 //    }
-}
+
+//    @Transactional(readOnly =true)
+//    public List<OrderListResponseDto> b_findOrders(){return orderRepository.b_findAll().stream().map(OrderListResponseDto::new).collect(Collectors.toList()); }
+//}
 
 //cascade -> 정보 다날려~

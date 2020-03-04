@@ -1,15 +1,13 @@
 spring:
   profiles:
     active: local
-
----
-spring:
-  profiles: local
-
+    include: real-oauth
+  session:
+    store-type: jdbc
   datasource:
     platform: h2
-    url: jdbc:h2:tcp://localhost/~/testsite
-    username: insung
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
     password:
     driver-class-name: org.h2.Driver
   jpa:
