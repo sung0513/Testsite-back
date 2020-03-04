@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 
 @Repository
 @RequiredArgsConstructor
+
+//status
 public class DeliveryRepository {
         EntityManager em;
 

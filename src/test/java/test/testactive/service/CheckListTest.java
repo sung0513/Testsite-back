@@ -50,12 +50,12 @@ public class CheckListTest {
 
     @Autowired
     FoodRepository foodRepository;
+
     @Autowired
     FoodService foodService;
 
     @Autowired
     CheckRepository checkRepository;
-
 
 
     @Autowired
@@ -100,20 +100,18 @@ public class CheckListTest {
 
         Store storeId= storeRepository.findOne(store.getId());
 
+        Delivery delivery = new Delivery();
 
+
+        //////////형 해당 이넘클래스 부분오류라서 주석처리했습니당
 //        delivery.setStatus(Enum.valueOf(ARRIVE, "도착")); //이넘타입 넘기기.
+        Delivery deliveryId = deliveryRepository.findOne(delivery.getId());
 
-//        Long id = checklistService.check(memberId, foodId, storeId,orderId);
-
-        Checklist checklist = Checklist.createchecklist(member, order, store, food);
+        //오류문제
+        Checklist checklist = Checklist.createchecklist(member, order, store, food, delivery);
 
         //해당값 checklistRepository에서 받아와 주문을 저장한다.
         checkRepository.save(checklist);
-//
-////        checklist.getId();
-//
-//        List<Checklist> checkList = checkRepository.findAll();
-////        Checklist checklist = checkList.get(0);
 
         assertThat(checklist.getFood()).isEqualTo(price); //푸드테이블확인
         assertThat(checklist.getOrder()).isEqualTo(qu); //가격확인

@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,11 +38,18 @@ public class SecurityConfig extends
     private final CustomOauth2UserService customOauth2UserService;
 
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
+    @SuppressWarnings("deprecation")
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
-    // 정수기판매원 kiminsung  : HttpSecurity 해결 좀;
+
+
 //    @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
