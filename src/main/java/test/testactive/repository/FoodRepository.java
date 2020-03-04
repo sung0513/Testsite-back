@@ -24,6 +24,8 @@ public class FoodRepository {
         }
     }
 
+
+
     public Food findOne(Long id) {
 
         return em.find(Food.class, id);

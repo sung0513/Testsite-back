@@ -21,8 +21,8 @@ public class Delivery extends BaseTimeEntity {
     private Order order;
 
 
-    @OneToOne(mappedBy = "delivery")
-    private Checklist checklist;
+//    @OneToOne(mappedBy = "delivery")
+//    private Checklist checklist;
 
     @Embedded
     private Address address;
@@ -34,10 +34,10 @@ public class Delivery extends BaseTimeEntity {
     private DeliveryStatus status;
 
 
-    @Builder //사용자에게 입력받는 정보 + 사용자에게 해당정보를 보여준다.
-    public Delivery(DeliveryStatus status, Address address) {
+    @Builder //해당 빌더 문제다.
+    public Delivery(DeliveryStatus status, Coupon coupon) {
         this.status = status;
-        this.address= address;
+        this.coupon = coupon;
     }
 
 

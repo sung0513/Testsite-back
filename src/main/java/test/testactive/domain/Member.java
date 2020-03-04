@@ -3,6 +3,7 @@ package test.testactive.domain;
 
 import jdk.nashorn.internal.runtime.Debug;
 import lombok.*;
+import org.springframework.stereotype.Component;
 import test.testactive.food.Food;
 
 import javax.persistence.*;
@@ -37,13 +38,21 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+//    @AttributeOverrides({
+//
+//            @AttributeOverride(name="city", column = @Column(name = "COMPANY_CITY"))
+//
+//            ,@AttributeOverride(name="gu", column = @Column(name = "COMPANY_GU"))
+//    })
+
+
     @Enumerated(EnumType.STRING)
     private Coupon coupon;
 
 
 
-    @OneToOne(mappedBy = "member") //mappedby : n:n 매핑시에 owner이 누군지 알려준다.
-    private Checklist checklist;
+//    @OneToOne(mappedBy = "member") //mappedby : n:n 매핑시에 owner이 누군지 알려준다.
+//    private Checklist checklist;
 
 
     @Builder // 값변경.

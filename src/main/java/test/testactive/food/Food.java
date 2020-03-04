@@ -35,9 +35,9 @@ public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
     @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
     private Member member;
 
-
-    @OneToOne(mappedBy = "delivery")
-    private Checklist checklist;
+//
+//    @OneToOne(mappedBy = "delivery")
+//    private Checklist checklist;
 
     @Builder // 값변경.
     public Food(Long id,String name, int price) {

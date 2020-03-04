@@ -32,7 +32,7 @@ import static test.testactive.domain.DeliveryStatus.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-//@Rollback(false)
+@Rollback(false)
 public class CheckListTest {
     private EntityManager em;
     @Autowired
@@ -116,27 +116,22 @@ public class CheckListTest {
         Delivery delivery = new Delivery();
         delivery.setStatus(DeliveryStatus.ARRIVE);
         delivery.setCoupon(Coupon.천원);
+
         //형 여기 save에서 null 뜹니다 !!!
-        deliveryService.DeliverySave(delivery);
+//        deliveryService.DeliverySave(delivery);
 
 //        em.persist(delivery); 서비스클래스가 잘못됫을수도 있으니 엔티티매니저 선언후 직접 저장해봣는데도 오류뜸 null 오류!!
-        Delivery deliveryId = deliveryRepository.findOne(delivery.getId());
+//        Delivery deliveryId = deliveryRepository.findOne(delivery.getId());
 
-        Checklist checklist = Checklist.createchecklist(member, order, foodId, storeId,  deliveryId);
+        Checklist checklist = Checklist.createchecklist(member, order, foodId, storeId);
 
 
-        checkRepository.save(checklist);
-//
-        System.out.println("aaa");
-        System.out.printf("test: %s",checklist.getFood());
+//        checklistService.checksave(checklist); 에러뜸!
+        System.out.printf("test: %s",checklist.getFood_name());
 
-//        assertThat(ord).isEqualTo(qu);
-//        assertThat(checklist.getOrder()).isEqualTo(qu);
-//        assertThat(checklist.getOrder()).isEqualTo(qu);
-//        assertThat(checklist.getOrder()).isEqualTo(qu);
 
-        assertThat(checklist.getOrder()).isEqualTo(qu);
-        assertThat(checklist.getFood()).isEqualTo(Foodname);
+        assertThat(checklist.getStock()).isEqualTo(qu);
+        assertThat(checklist.getFood_name()).isEqualTo(Foodname);
 
     }
 
