@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,22 +24,7 @@ import test.testactive.domain.user.Role;
 //import test.testactive.domain.user.UserService;
 import test.testactive.service.MemberService;
 
-import static org.hibernate.criterion.Restrictions.and;
 
-@RequiredArgsConstructor
-@EnableWebSecurity //spring 시큐리티 설정 활성화
-public class SecurityConfig extends WebSecurityConfigurerAdapter{ //bean 주입이안됨.
-
-//        WebSecurityEnablerConfiguration { //404
-
-//    UserService UserService;
-    private final CustomOauth2UserService customOauth2UserService;
-
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
 //    @SuppressWarnings("deprecation")
 //    @Bean
