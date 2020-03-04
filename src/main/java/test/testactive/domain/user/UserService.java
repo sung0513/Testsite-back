@@ -20,7 +20,7 @@
 //@AllArgsConstructor
 //public class UserService implements UserDetailsService {
 //    private UserRepository userRepository;
-
+//
 //    @Transactional
 //    public Long joinUser(UserDto userDto) {
 //        // 비밀번호 암호화
@@ -29,7 +29,7 @@
 //
 //        return userRepository.save(userDto.toEntity()).getId();
 //    }
-
+//
 //    @Override
 //    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 //        Optional<test.testactive.domain.user.User> userEntityWrapper = userRepository.findByEmail(userEmail);
@@ -46,3 +46,4 @@
 //        return new User(userEntity.getEmail(), userEntity.getPassword(), authorities);
 //    }
 //}
+////

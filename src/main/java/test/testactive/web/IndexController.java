@@ -10,7 +10,6 @@ import test.testactive.config.auth.dto.SessionUser;
 import test.testactive.domain.Order;
 import test.testactive.domain.Store;
 import test.testactive.domain.user.User;
-import test.testactive.domain.user.UserDto;
 //import test.testactive.domain.user.UserService;
 import test.testactive.repository.OrderRepository;
 import test.testactive.request.StoreSaveRequestDto;

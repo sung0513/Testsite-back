@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import sun.security.util.ManifestDigester;
 import test.testactive.domain.user.Role;
 //import test.testactive.domain.user.UserService;
 import test.testactive.service.MemberService;

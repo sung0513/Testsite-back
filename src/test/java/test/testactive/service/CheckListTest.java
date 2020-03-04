@@ -1,11 +1,13 @@
 package test.testactive.service;
 
 import net.bytebuddy.asm.Advice;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.*;
@@ -14,6 +16,7 @@ import test.testactive.food.Food2Repository;
 import test.testactive.repository.*;
 import test.testactive.request.FoodSaveRequestDto;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.print.DocFlavor;
@@ -29,16 +32,9 @@ import static test.testactive.domain.DeliveryStatus.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-
-
-//멤버 : street, id;
-//order : stock_quantity
-//food : price
-//delivery : status
-//
+//@Rollback(false)
 public class CheckListTest {
-
-
+    private EntityManager em;
     @Autowired
     MemberService memberService;
     @Autowired
@@ -65,7 +61,23 @@ public class CheckListTest {
     DeliveryRepository deliveryRepository;
 
     @Autowired
+    DeliveryService deliveryService;
+
+    @Autowired
     ChecklistService checklistService;
+
+
+    @Autowired
+    StoreService storeService;
+
+
+
+    @Autowired
+    AddressRepository addressRepository;
+
+    @Autowired
+    AddressService addressService;
+
 
 
     @Test
@@ -77,44 +89,54 @@ public class CheckListTest {
         int qu = 3;
         String store_name = "멕시카나";
 
+//        Address address = new Address();
+//        address.setStreet("광진구");
+//        addressService.AddressSave(address);
+//        Address addressId = addressService.findOne(address.getId());
+
         Member member = new Member();
         member.setName(street);
-
-
         Long memberId = memberService.SingUp(member);
-//        ------------------------------------------------------------
 
-        Food food = new Food();
+        Food food = new Food(); //배송량
+        food.setName(Foodname);
         food.setPrice(price);
-        Food foodId = foodService.findOne(food.getId()); //확인해주기
+        foodService.Foodsave(food);
+        Food foodId = foodService.findOne(food.getId());
 
-//----------------------------------------------------------------------
-
-        //status는어떡해추가할것인가...
         Order order = new Order(); //배송량
         order.setStockQuantity(qu);
-        Order orderId = orderRepository.findOne(order.getId());
+        Long orderId = orderService.order(memberId,food.getId(),3);
 
         Store store = new Store();
         store.setName(store_name);
-
+        storeService.Storesave(store);
         Store storeId= storeRepository.findOne(store.getId());
 
         Delivery delivery = new Delivery();
+        delivery.setStatus(DeliveryStatus.ARRIVE);
+        delivery.setCoupon(Coupon.천원);
+        //형 여기 save에서 null 뜹니다 !!!
+        deliveryService.DeliverySave(delivery);
 
-
-        //////////형 해당 이넘클래스 부분오류라서 주석처리했습니당
-//        delivery.setStatus(Enum.valueOf(ARRIVE, "도착")); //이넘타입 넘기기.
+//        em.persist(delivery); 서비스클래스가 잘못됫을수도 있으니 엔티티매니저 선언후 직접 저장해봣는데도 오류뜸 null 오류!!
         Delivery deliveryId = deliveryRepository.findOne(delivery.getId());
 
-        //오류문제
-        Checklist checklist = Checklist.createchecklist(member, order, store, food, delivery);
+        Checklist checklist = Checklist.createchecklist(member, order, foodId, storeId,  deliveryId);
 
-        //해당값 checklistRepository에서 받아와 주문을 저장한다.
+
         checkRepository.save(checklist);
+//
+        System.out.println("aaa");
+        System.out.printf("test: %s",checklist.getFood());
 
-        assertThat(checklist.getFood()).isEqualTo(price); //푸드테이블확인
-        assertThat(checklist.getOrder()).isEqualTo(qu); //가격확인
+//        assertThat(ord).isEqualTo(qu);
+//        assertThat(checklist.getOrder()).isEqualTo(qu);
+//        assertThat(checklist.getOrder()).isEqualTo(qu);
+//        assertThat(checklist.getOrder()).isEqualTo(qu);
+
+        assertThat(checklist.getOrder()).isEqualTo(qu);
+        assertThat(checklist.getFood()).isEqualTo(Foodname);
 
     }
 

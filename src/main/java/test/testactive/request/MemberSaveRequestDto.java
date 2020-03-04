@@ -6,14 +6,14 @@ import test.testactive.domain.Member;
 import test.testactive.food.Food;
 
 public class MemberSaveRequestDto {
-    private int id;
+    private Long id;
     private String name;
 
 
 
 
     @Builder
-    public MemberSaveRequestDto(int id, String name) {
+    public MemberSaveRequestDto(Long id, String name) {
         this.id = id;
         this.name = name;
 

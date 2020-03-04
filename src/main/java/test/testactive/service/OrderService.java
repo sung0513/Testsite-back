@@ -11,10 +11,6 @@ import test.testactive.repository.MemberRepository;
 import test.testactive.repository.OrderRepository;
 import test.testactive.repository.StoreRepository;
 
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

@@ -26,6 +26,10 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
 
+    public void Storesave(Store store){ //직접만든레포지토리
+        storeRepository.save(store);
+    }
+
     /**
         DB에서 store정보를 가져오는 메서드 작성
      */
@@ -49,6 +53,7 @@ public class StoreService {
     /**
             웹에서 사용자가 입력한 정보를 보여주는 메서드 작성
      */
+
 
 
 }

@@ -12,6 +12,7 @@ import test.testactive.food.Food;
 //고객이 웹에서 입력 받아 저장하는 클래스
 
 public class FoodSaveRequestDto {
+    private Long id;
     private String name;
     private int price;
 
@@ -28,6 +29,7 @@ public class FoodSaveRequestDto {
 
     public Food toEntity() {
         return Food.builder()
+                .id(id)
                 .name(name) //비비큐
                 .price(price) // 180000
                 .build();

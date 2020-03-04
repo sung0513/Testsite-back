@@ -37,8 +37,9 @@ public class ChecklistService {
 
 
 
+
         //주소, 주문상황, 수량, 가게이름, 음식가격
-        Checklist checklist = Checklist.createchecklist(member, order, store, food,delivery);
+        Checklist checklist = Checklist.createchecklist(member, order,food, store, delivery);
 
         //해당값 checklistRepository에서 받아와 주문을 저장한다.
         checkRepository.save(checklist);

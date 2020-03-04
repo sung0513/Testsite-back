@@ -18,7 +18,7 @@ public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private long id;
+    private Long id;
 
     @Column
     private String name;
@@ -47,7 +47,7 @@ public class Member extends BaseTimeEntity {
 
 
     @Builder // 값변경.
-    public Member(int id,String name) {
+    public Member(Long id, String name) {
         this.id = id;
         this.name = name;
 

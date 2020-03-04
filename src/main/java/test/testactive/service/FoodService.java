@@ -4,6 +4,7 @@ package test.testactive.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import test.testactive.domain.Member;
 import test.testactive.food.Food;
 import test.testactive.food.Food2Repository;
 import test.testactive.repository.FoodRepository;
@@ -46,6 +47,12 @@ public class FoodService {
     @Transactional(readOnly =true)
     public Food findOne(Long foodId) {
         return foodRepository.findOne(foodId);
+    }
+
+    @Transactional
+    public Long SingUp(Food food) {
+        foodRepository.save(food);
+        return food.getId();
     }
 }
 

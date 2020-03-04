@@ -2,10 +2,7 @@ package test.testactive.food;
 
 
 import com.fasterxml.jackson.databind.ser.Serializers;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import test.testactive.domain.*;
 import test.testactive.exeception.NotEnoughStockException;
 
@@ -18,7 +15,8 @@ import java.util.List;
 @DiscriminatorColumn(name = "Ftype")
 @Getter
 @Setter
-@NoArgsConstructor //생성자 추가
+@NoArgsConstructor
+@Embeddable
 public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
 
 
@@ -38,12 +36,11 @@ public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
     private Member member;
 
 
-    @OneToOne(mappedBy = "food")
+    @OneToOne(mappedBy = "delivery")
     private Checklist checklist;
 
-
     @Builder // 값변경.
-    public Food(Long id, String name, int price) {
+    public Food(Long id,String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
