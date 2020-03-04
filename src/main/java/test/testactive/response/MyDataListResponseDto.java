@@ -17,7 +17,6 @@ public class MyDataListResponseDto {
         this.name = entity.getName();
         this.password = entity.getEmail();
         this.email = entity.getEmail();
-        this.address = entity.getAddress();
         this.picture = entity.getPicture();
     }
 }

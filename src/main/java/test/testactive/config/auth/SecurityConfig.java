@@ -28,10 +28,9 @@ import static org.hibernate.criterion.Restrictions.and;
 
 @RequiredArgsConstructor
 @EnableWebSecurity //spring 시큐리티 설정 활성화
-public class SecurityConfig extends
-        WebSecurityEnablerConfiguration { //404
-//    WebSecurityConfigurerAdapter{ //bean 주입이안됨.
+public class SecurityConfig extends WebSecurityConfigurerAdapter{ //bean 주입이안됨.
 
+//        WebSecurityEnablerConfiguration { //404
 
 //    UserService UserService;
     private final CustomOauth2UserService customOauth2UserService;
@@ -42,14 +41,14 @@ public class SecurityConfig extends
 //        return new BCryptPasswordEncoder();
 //    }
 
-    @SuppressWarnings("deprecation")
-    @Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
+//    @SuppressWarnings("deprecation")
+//    @Bean
+//    public static NoOpPasswordEncoder passwordEncoder() {
+//        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+//    }
 
 
-//    @Override
+   @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
                 //시큐리티 x-frame-options 응답헤더, 클릭잭킹
@@ -64,12 +63,13 @@ public class SecurityConfig extends
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()//권한관리대상 지정옵션
 //                "api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
+
                 .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다3403
 
                 .and()
                     .logout()
                     .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
-                    .invalidateHttpSession(true)
+//                    .invalidateHttpSession(true)
                 .and()
 //                //자체로그인폼
 //                    .formLogin()
