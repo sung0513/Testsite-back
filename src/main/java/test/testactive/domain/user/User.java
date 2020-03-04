@@ -27,12 +27,6 @@ public class User extends BaseTimeEntity {
     @Column(length = 20, nullable = false)
     private String email;
 
-    @Column(length = 100)
-    private String password;
-
-    @Column
-    private String address;
-
     @Column
     private String picture;
 
@@ -41,14 +35,12 @@ public class User extends BaseTimeEntity {
     private Role role;
 
     @Builder //값을 넣어주는 어노테이션
-    public User(Long id, String name, String email, String picture,String password, Role role){
+    public User(Long id, String name, String email, String picture, Role role){
         this.id = id;
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
-        this.password = password;
-
     }
 
     public User update(String name, String picture){

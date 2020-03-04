@@ -10,7 +10,6 @@ import test.testactive.config.auth.dto.SessionUser;
 import test.testactive.domain.Order;
 import test.testactive.domain.Store;
 import test.testactive.domain.user.User;
-import test.testactive.domain.user.UserDto;
 //import test.testactive.domain.user.UserService;
 import test.testactive.repository.OrderRepository;
 import test.testactive.request.StoreSaveRequestDto;
@@ -19,6 +18,7 @@ import test.testactive.service.MemberService;
 import test.testactive.service.OrderService;
 import test.testactive.service.StoreService;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
@@ -34,12 +34,12 @@ public class IndexController {
 
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user) {
+    public String index(Model model) {
         model.addAttribute("food", foodService.findAllDesc());
 
         //CustomOAuth2UserService에서 로그인 성공시 세션에 SessionUser를 저장하도록 구성함.
         //즉 로그인 성공시 httpSession.getAttribute("user")에서 값을 가져올수 있다.
-//        SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
+        SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
 
         if (user != null) { // 세션에 저장된 값이 있을때만 model에 userName으로 등록한다.
             //세션에 저장된 값이 없으면 model엔 아무런 값이 없는 상태이니 로그인 버튼이 보인다.
