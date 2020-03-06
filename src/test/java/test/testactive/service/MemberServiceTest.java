@@ -1,6 +1,7 @@
 package test.testactive.service;
 
 
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import test.testactive.domain.Address;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
 
@@ -16,6 +18,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
+import static test.testactive.domain.Coupon.천원;
+import static test.testactive.domain.DeliveryStatus.ARRIVE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,15 +37,19 @@ public class MemberServiceTest {
     @Test
     public void testmember() throws Exception {
 
+        String street = "서울시";
+        String zipcode ="강남구";
+        Address address = new Address(zipcode,street);
 
         Member member = new Member();
-        member.setName("세팅");
+        member.setName("zz");
+        member.setAddress(address);
+        member.setCoupon(천원);
 
+
+        System.out.printf("주소 %s", member.getAddress());
         Long saveId = memberService.SingUp(member);
-
         assertEquals(member, memberRepository.findOne(saveId));
-
-
     }
 
 
@@ -79,4 +87,6 @@ public class MemberServiceTest {
         assertThat(member.getCreatedDate()).isAfter(now);
         assertThat(member.getModifiedDate()).isAfter(now);
     }
+
+
 }

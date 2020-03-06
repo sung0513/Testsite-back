@@ -16,10 +16,7 @@ public class CheckRepository {
 
     public void save(Checklist checklist) {
             em.persist(checklist);
-        }
-
-
-
+    }
     public Checklist findOne(Long id) {
         return em.find(Checklist.class, id);
     }

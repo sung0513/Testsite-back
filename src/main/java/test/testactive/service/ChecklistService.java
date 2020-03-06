@@ -27,6 +27,31 @@ public class ChecklistService {
         checkRepository.save(checklist);
     }
 
+    @Transactional
+
+    //member, order, food, store,
+    public Long Check(Long memberId, Long foodId, Long storeId, Long orderId) {
+
+        //member food의 각각의 엔티티 조회 id로
+        Member member = memberRepository.findOne(memberId);
+        Food food = foodRepository.findOne(foodId);
+        Store store = foodRepository.findOne(storeId);
+        Order order = orderRepository.findOne(orderId);
+
+
+        // delivery에 주소를 세팅
+        Delivery delivery = new Delivery();
+        delivery.setAddress(member.getAddress());
+
+        //음식 주문로직 -> 음식 , 가격 , 개수가 담겨 있음 -> 문제는 추후 계산 문제
+        Orderfood orderfood = Orderfood.createOrderfood(food, food.getPrice(), count);
+
+        //주문에는 주문시킨사람, 배송, 음식배송 정보가 담겨 있음 -> 버전업에서는 다른 여러가지 주문에 대한 사항추가
+        Order order = Order.createOrder(member, delivery, orderfood);
+
+        //이것을 orderRepository에서 받아와 주문을 저장한다.
+        orderRepository.save(order);
+    }
     //주문
 //    @Transactional
 //    public Long check(Long memberId, Long foodId, Long storeId, Long orderId, Long deliveryId) { //Long 타입이여서 매개변수id를 못받음

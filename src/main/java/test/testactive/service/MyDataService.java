@@ -15,6 +15,4 @@ public class MyDataService {
     private final MemberRepository memberRepository;
 
 
-
-
 }

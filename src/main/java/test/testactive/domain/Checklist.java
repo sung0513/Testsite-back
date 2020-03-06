@@ -42,8 +42,8 @@ public class Checklist extends BaseTimeEntity {
     @Column
     private String store_name; //가게이름
 
-//    @Enumerated(EnumType.STRING) //배달 정보넘김
-//    private DeliveryStatus status;
+    @Enumerated(EnumType.STRING) //배달 정보넘김
+    private DeliveryStatus status;
 
 
 
@@ -70,7 +70,7 @@ public class Checklist extends BaseTimeEntity {
 //    private Delivery delivery;
 
 //
-    public  static Checklist createchecklist(Member member, Order order, Food food, Store store)
+    public  static Checklist createchecklist(Member member, Order order, Food food, Store store, Delivery delivery)
     {
         Checklist checklist = new Checklist();
 //        checklist.SetDelivery(delivery);
@@ -82,7 +82,7 @@ public class Checklist extends BaseTimeEntity {
         checklist.SetFoodPrice(food);
         checklist.SetStock(order);
         checklist.SetStorename(store);
-//        checklist.SetStatus(delivery);
+        checklist.SetStatus(delivery);
 
         return checklist;
     }
@@ -108,7 +108,7 @@ public class Checklist extends BaseTimeEntity {
         this.store_name = store.getName();
     }
 
-//    public void SetStatus(Delivery delivery) {  this.status = delivery.getStatus(); }
+    public void SetStatus(Delivery delivery) {  this.status = delivery.getStatus(); }
 
 
     /*

@@ -114,19 +114,20 @@ public class CheckListTest {
         Store storeId= storeRepository.findOne(store.getId());
 
         Delivery delivery = new Delivery();
-        delivery.setStatus(DeliveryStatus.ARRIVE);
-        delivery.setCoupon(Coupon.천원);
+        Address address = new Address("강남구","어딘가");
+        delivery.setStatus(ARRIVE);
+        delivery.setAddress(address);
 
         //형 여기 save에서 null 뜹니다 !!!
-//        deliveryService.DeliverySave(delivery);
+        deliveryService.DeliverySave(delivery);
 
 //        em.persist(delivery); 서비스클래스가 잘못됫을수도 있으니 엔티티매니저 선언후 직접 저장해봣는데도 오류뜸 null 오류!!
 //        Delivery deliveryId = deliveryRepository.findOne(delivery.getId());
 
-        Checklist checklist = Checklist.createchecklist(member, order, foodId, storeId);
+        Checklist checklist = Checklist.createchecklist(member, order, foodId, storeId, delivery);
 
 
-//        checklistService.checksave(checklist); 에러뜸!
+        checklistService.checksave(checklist);
         System.out.printf("test: %s",checklist.getFood_name());
 
 

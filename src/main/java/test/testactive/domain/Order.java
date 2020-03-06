@@ -47,7 +47,7 @@ public class Order extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
-//
+
 //    @OneToOne(mappedBy = "order")
 //    private Checklist cheklist;
 

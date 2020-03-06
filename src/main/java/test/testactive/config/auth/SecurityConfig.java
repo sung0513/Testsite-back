@@ -8,22 +8,17 @@ package test.testactive.config.auth;
  */
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import test.testactive.domain.user.Role;
-//import test.testactive.domain.user.UserService;
-import test.testactive.service.MemberService;
 
+
+@RequiredArgsConstructor
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 
 //    @SuppressWarnings("deprecation")
@@ -31,6 +26,7 @@ import test.testactive.service.MemberService;
 //    public static NoOpPasswordEncoder passwordEncoder() {
 //        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 //    }
+    private final CustomOauth2UserService customOauth2UserService;
 
 
    @Override
@@ -56,14 +52,6 @@ import test.testactive.service.MemberService;
                     .logoutSuccessUrl("/")  //로그아웃 기능에대한 여러설정의 진입점, 성공시 '/'주소로 이동
 //                    .invalidateHttpSession(true)
                 .and()
-//                //자체로그인폼
-//                    .formLogin()
-//                    .loginPage("/user/login")
-//                    .defaultSuccessUrl("user/login/result")
-//                    .permitAll()
-//                .and()
-//                    .exceptionHandling().accessDeniedPage("/user/denied")
-//                .and()
                 //네이버 구글
                     .oauth2Login() //oauth2로그인 기능에 대한 여러설정의 진입점
                         .userInfoEndpoint() // oauth2 로그인 성공 이후 사용자 정보를 가져올때의 설정들을 담당
@@ -71,12 +59,6 @@ import test.testactive.service.MemberService;
         // 리소스서버(소셜서비스들)에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능들을 명시할수 있다.
 
     }
-
-    // 자체로그인폼 패스워드숨기기
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.userDetailsService(UserService).passwordEncoder(passwordEncoder());
-//    }
 }
 
 

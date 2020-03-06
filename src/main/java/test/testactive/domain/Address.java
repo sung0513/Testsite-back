@@ -15,13 +15,14 @@ import javax.persistence.*;
 //고객 주소입력
 public class Address {
 
-    private Long id;
+    @Column(name = "zipcode")
     private String zipcode;
+
+    @Column(name = "street")
     private String street;
 
     @Builder
-    public Address(Long id, String zipcode, String street) {
-        this.id = id;
+    public Address( String zipcode, String street) {
         this.zipcode = zipcode;
         this.street = street;
     }
