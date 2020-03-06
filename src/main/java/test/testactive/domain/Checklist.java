@@ -6,6 +6,7 @@ package test.testactive.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import test.testactive.food.Food;
 
@@ -19,12 +20,12 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-
+@NoArgsConstructor
 ////주소, 가격, 가게이름
 public class Checklist extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "now_id")
+    @Column(name = "checklist_id")
     private Long id;
 
     @Column
@@ -70,7 +71,7 @@ public class Checklist extends BaseTimeEntity {
 //    private Delivery delivery;
 
 //
-    public  static Checklist createchecklist(Member member, Order order, Food food, Store store, Delivery delivery)
+    public static Checklist createchecklist(Member member, Order order, Food food, Store store, Delivery delivery)
     {
         Checklist checklist = new Checklist();
 //        checklist.SetDelivery(delivery);

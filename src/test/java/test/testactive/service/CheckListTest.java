@@ -2,6 +2,7 @@ package test.testactive.service;
 
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
+import org.hibernate.annotations.Check;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,7 @@ public class CheckListTest {
 
 
     @Test
-    public void alltest() throws Exception {
+    public void alltest() {
 
         String street = "현우";
         String Foodname = "치킨";
@@ -106,34 +107,31 @@ public class CheckListTest {
 
         Order order = new Order(); //배송량
         order.setStockQuantity(qu);
-        Long orderId = orderService.order(memberId,food.getId(),3);
+        Long orderId = orderService.order(memberId, food.getId(), 3);
 
         Store store = new Store();
         store.setName(store_name);
         storeService.Storesave(store);
-        Store storeId= storeRepository.findOne(store.getId());
+        Store storeId = storeRepository.findOne(store.getId());
 
         Delivery delivery = new Delivery();
-        Address address = new Address("강남구","어딘가");
+        Address address = new Address("강남구", "어딘가");
         delivery.setStatus(ARRIVE);
         delivery.setAddress(address);
 
-        //형 여기 save에서 null 뜹니다 !!!
+
         deliveryService.DeliverySave(delivery);
 
-//        em.persist(delivery); 서비스클래스가 잘못됫을수도 있으니 엔티티매니저 선언후 직접 저장해봣는데도 오류뜸 null 오류!!
-//        Delivery deliveryId = deliveryRepository.findOne(delivery.getId());
+        Checklist checklist = new Checklist();
 
-        Checklist checklist = Checklist.createchecklist(member, order, foodId, storeId, delivery);
+        //해당부분오류
+        Long checkid =  checklistService.Check(member.getId(), food.getId(), order.getId(),store.getId(), delivery.getId());
 
-
-        checklistService.checksave(checklist);
-        System.out.printf("test: %s",checklist.getFood_name());
 
 
         assertThat(checklist.getStock()).isEqualTo(qu);
         assertThat(checklist.getFood_name()).isEqualTo(Foodname);
-
+        assertEquals(checklist, checkRepository.findOne(checkid));
     }
-
 }
+
