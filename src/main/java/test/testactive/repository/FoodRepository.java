@@ -24,6 +24,8 @@ public class FoodRepository {
         }
     }
 
+
+
     public Food findOne(Long id) {
 
         return em.find(Food.class, id);
@@ -35,6 +37,7 @@ public class FoodRepository {
         return em.createQuery("select f from Food f", Food.class)
                 .getResultList();
     }
+
 
     public List<Food> b_findAll(){
         return em.createQuery("select 'FOOD_ID', 'PRICE', 'NAME'  from Food f", Food.class)

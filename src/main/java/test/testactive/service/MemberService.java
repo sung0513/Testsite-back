@@ -35,8 +35,6 @@ public class MemberService {
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("회원가입된 사람입니다.");
         }
-
-
     }
 
     public List<Member> findMembers() {

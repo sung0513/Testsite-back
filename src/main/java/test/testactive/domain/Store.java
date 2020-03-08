@@ -46,8 +46,8 @@ public class Store extends BaseTimeEntity {
     private Member member;
 
 
-    @OneToOne(mappedBy = "store")
-    private Checklist checklist;
+//    @OneToOne(mappedBy = "store")
+//    private Checklist checklist;
 
     @Builder //사용자에게 입력받는 정보 + 사용자에게 해당정보를 보여준다.
     public Store(String name, String tel, String address, int s_coupon) {

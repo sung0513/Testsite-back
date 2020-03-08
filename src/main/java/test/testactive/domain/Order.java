@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Check;
+import org.springframework.data.jpa.repository.Query;
 import test.testactive.exeception.NotEnoughStockException;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Order extends BaseTimeEntity {
     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL )
     private List<Orderfood> orderfoods = new ArrayList<>();
 
+
     /*
       엔티티 Cascade는 엔티티의 상태 변화를 전파시키는 옵션
      단방향 혹은 양방향으로 매핑되어 있는 엔티티에 대해 어느 한쪽 엔티티의 상태(생성 혹은 삭제)가 변경되었을 시
@@ -48,8 +50,6 @@ public class Order extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @OneToOne(mappedBy = "order")
-    private Checklist cheklist;
 
 
     public void setMember(Member member) {
@@ -90,14 +90,6 @@ public class Order extends BaseTimeEntity {
         return order;
     }
 
-//    @Builder //사용자에게 입력받는 정보 + 사용자에게 해당정보를 보여준다.
-//    public Order(int stockQuantity, Delivery status, String address, int s_coupon) {
-//        this.name = name;
-//        this.tel = tel;
-//        this.address = address;
-//        this.s_coupon = s_coupon;
-//    }
-
     /**
      * 주문 후에 취소 상태를 보여준다
      */
@@ -127,15 +119,23 @@ public class Order extends BaseTimeEntity {
         return totalPrice;
 
     }
-    // 장바구니 컨트롤
+    /**
+     * 장바구니를 control하는 함수 위의 cancel함수와 차이가있습니다.
+     */
     public void basket_cancel(int quantity) //+, - 둘다 해당함수 불러옴
     {
-        this.stockQuantity += quantity; //취소버튼을 누를경우 -1값이 넘어간다
+
         if (stockQuantity == 1) {
             throw new NotEnoughStockException("non click sub");
-        } else if (stockQuantity >= 100) {
+        }
+        else if (stockQuantity >= 100) {
             throw new NotEnoughStockException("non click add");
         }
+
+        this.stockQuantity += quantity; //취소버튼을 누를경우 -1값이 넘어간
+
+        return;
+
     }
 
 }

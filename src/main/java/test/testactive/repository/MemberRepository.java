@@ -33,7 +33,7 @@ public class MemberRepository {
         return em.createQuery("select m from Member m" , Member.class )
                 .getResultList();
 
-    }  // member의 모든 정보를 불러오는것
+    }  //member의 모든 정보를 불러오는것
 
     public List<Member> findByName(String name) {
         return  em.createQuery("select m from Member m where m.name = :name", Member.class)

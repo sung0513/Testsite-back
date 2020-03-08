@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAttribute;
 
 //구글 or 네이버 로그인시 DB 엔티티생성
 @Getter
@@ -30,8 +31,13 @@ public class User extends BaseTimeEntity {
     @Column
     private String picture;
 
+
     @Enumerated(EnumType.STRING) //db에 저장시 이넘값을 어떤형태로 저장할지 결정한다. default ; int
     @Column(nullable = false)
+    private Role role;
+
+    @Builder
+    private User(String name, String email, String picture, Role role){
 
         this.name = name;
         this.email = email;
@@ -47,6 +53,6 @@ public class User extends BaseTimeEntity {
     }
 
     public String getRoleKey() {
-        return this.role.ge
+        return this.role.getKey();
         }
 }
