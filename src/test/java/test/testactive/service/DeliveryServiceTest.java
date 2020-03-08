@@ -18,9 +18,7 @@ import static test.testactive.domain.DeliveryStatus.ARRIVE;
 
 @SpringBootTest
 @Transactional
-@Rollback(false)
 @RunWith(SpringRunner.class)
-
 public class DeliveryServiceTest {
 
     @Autowired

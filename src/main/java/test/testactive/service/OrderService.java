@@ -64,6 +64,16 @@ public class OrderService {
         //주문 취소 로직
         order.cancel();
     }
+
+    @Transactional
+    public void cancelbasketOrder(Long foodId, Long orderId) {
+
+        Order order = orderRepository.findOne(orderId);
+        Food food = foodRepository.findOne(foodId); //음식이름 ,가격
+        //주문 취소 로직
+
+        order.basket_cancel(order.getStockQuantity());
+    }
 }
 
     //검색

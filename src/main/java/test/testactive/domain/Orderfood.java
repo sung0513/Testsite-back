@@ -49,9 +49,6 @@ public class Orderfood extends BaseTimeEntity {
         getOrder().cancel();
     }
 
-    public void b_cancel(){ //장바구니에서 취소
-        getOrder().basket_cancel(count);
-    }
 
     //총가
 

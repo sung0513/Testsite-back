@@ -38,6 +38,7 @@ public class FoodRepository {
                 .getResultList();
     }
 
+
     public List<Food> b_findAll(){
         return em.createQuery("select 'FOOD_ID', 'PRICE', 'NAME'  from Food f", Food.class)
                 .getResultList();

@@ -1,25 +1,21 @@
 package test.testactive.domain;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Embeddable //H2 디비
 @Getter
-@Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 //고객 주소입력
 public class Address {
 
     @Column(name = "zipcode")
-    private String zipcode;
-
+    String zipcode;
     @Column(name = "street")
-    private String street;
+    String street;
+
 
     @Builder
     public Address( String zipcode, String street) {

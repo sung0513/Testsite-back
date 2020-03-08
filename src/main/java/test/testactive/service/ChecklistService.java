@@ -11,6 +11,7 @@ import test.testactive.repository.*;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+
 public class ChecklistService {
 
     private final OrderRepository orderRepository;
@@ -32,6 +33,7 @@ public class ChecklistService {
 
     public Long Check(Long memberId, Long foodId, Long storeId, Long orderId, Long deliveryId) {
 
+
         Member member = memberRepository.findOne(memberId);
         Food food = foodRepository.findOne(foodId);
         Store store = storeRepository.findOne(storeId);
@@ -39,7 +41,7 @@ public class ChecklistService {
         Delivery delivery = deliveryRepository.findOne(deliveryId);
 
 
-        Checklist checklist = Checklist.createchecklist(member, order,food,store,delivery);
+        Checklist checklist = Checklist.createchecklist(member,order,food,store,delivery);
         checkRepository.save(checklist);
         return checklist.getId();
     }

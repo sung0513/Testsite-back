@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.postprocessor.IPostProcessor;
 import test.testactive.domain.Address;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
@@ -24,7 +25,6 @@ import static test.testactive.domain.DeliveryStatus.ARRIVE;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-@Rollback(false)
 public class MemberServiceTest {
 
     @Autowired
@@ -36,20 +36,33 @@ public class MemberServiceTest {
 
     @Test
     public void testmember() throws Exception {
-
+        String named = "현우";
         String street = "서울시";
         String zipcode ="강남구";
         Address address = new Address(zipcode,street);
 
-        Member member = new Member();
-        member.setName("zz");
-        member.setAddress(address);
-        member.setCoupon(천원);
+        //새로운 방식
+        memberRepository.save(Member.builder()
+                     .name(named)
+                     .address(address)
+                     .coupon(천원)
+                .build());
+        List<Member> mm = memberRepository.findAll();
+        Member member = mm.get(0);
+        System.out.println(member.getCreatedDate());
+        assertThat(member.getName()).isEqualTo(named);
 
 
-        System.out.printf("주소 %s", member.getAddress());
-        Long saveId = memberService.SingUp(member);
-        assertEquals(member, memberRepository.findOne(saveId));
+        /**
+         * 기존 방식 @Setter 사용
+         */
+//        Member member = new Member();
+//        member.setName("zz");
+//        member.setAddress(address);
+//        member.setCoupon(천원);
+
+//        Long saveId = memberService.SingUp(member);
+//        assertEquals(member, memberRepository.findOne(saveId));
     }
 
 
@@ -58,13 +71,17 @@ public class MemberServiceTest {
     @Test(expected = IllegalStateException.class)
     public void testCheckmember() throws Exception {
 
-        Member member1 = new Member();
-        member1.setName("pizza");
-        Member member2 = new Member();
-        member2.setName("checck");
-
-        memberService.SingUp(member1);
-        memberService.SingUp(member2);
+        memberRepository.save(Member.builder()
+                .name("abc")
+                .build());
+        memberRepository.save(Member.builder()
+                .name("abc")
+                .build());
+        List<Member> mm = memberRepository.findAll();
+        Member member = mm.get(0);
+        Member member2 = mm.get(1);
+        memberService.SingUp(member);//save
+        memberService.SingUp(member2); //save
         fail("예외가 발생해야 한다.");
     }
 
@@ -72,12 +89,10 @@ public class MemberServiceTest {
     public void input_BaseTimeEntity(){
         //given
         LocalDateTime now = LocalDateTime.of(2020,2,17,0,0,0);
-        Member member1 = new Member();
-        member1.setName("pizza");
-        Member member2 = new Member();
-        member2.setName("aa");
 
-
+        memberRepository.save(Member.builder()
+                .name("pizza")
+                .build());
         List<Member> MemberList = memberRepository.findAll();
 
         Member member = MemberList.get(0);
@@ -87,6 +102,4 @@ public class MemberServiceTest {
         assertThat(member.getCreatedDate()).isAfter(now);
         assertThat(member.getModifiedDate()).isAfter(now);
     }
-
-
 }

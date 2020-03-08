@@ -33,7 +33,6 @@ public class DeliveryService {
             deliveryRepository.save(delivery);
         }
 
-
     @Transactional
     public Long SingUp(Delivery delivery) {
 

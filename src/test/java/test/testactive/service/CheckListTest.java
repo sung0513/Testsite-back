@@ -1,5 +1,6 @@
 package test.testactive.service;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.hibernate.annotations.Check;
@@ -8,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,13 +30,15 @@ import static jdk.nashorn.internal.runtime.regexp.joni.constants.Arguments.NON;
 import static org.junit.Assert.assertEquals;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static test.testactive.domain.Coupon.천원;
 import static test.testactive.domain.DeliveryStatus.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-@Rollback(false)
 public class CheckListTest {
+
+    @Autowired
     private EntityManager em;
     @Autowired
     MemberService memberService;
@@ -84,19 +88,20 @@ public class CheckListTest {
     @Test
     public void alltest() {
 
-        String street = "현우";
-        String Foodname = "치킨";
-        int price = 1000;
-        int qu = 3;
-        String store_name = "멕시카나";
+        String my_name = "현우짱";
+        String Foodname = "hot";
+        int price = 100000;
+        int qu = 10;
+        String store_name = "치킨은bhc";
 
-//        Address address = new Address();
-//        address.setStreet("광진구");
-//        addressService.AddressSave(address);
-//        Address addressId = addressService.findOne(address.getId());
-
+        Address address = new Address("강남구", "신사동");
         Member member = new Member();
-        member.setName(street);
+        //새로운 방식
+        memberRepository.save(Member.builder()
+                .name(my_name)
+                .address(address)
+                .coupon(천원)
+                .build());
         Long memberId = memberService.SingUp(member);
 
         Food food = new Food(); //배송량
@@ -107,6 +112,7 @@ public class CheckListTest {
 
         Order order = new Order(); //배송량
         order.setStockQuantity(qu);
+        orderRepository.save(order);
         Long orderId = orderService.order(memberId, food.getId(), 3);
 
         Store store = new Store();
@@ -115,23 +121,17 @@ public class CheckListTest {
         Store storeId = storeRepository.findOne(store.getId());
 
         Delivery delivery = new Delivery();
-        Address address = new Address("강남구", "어딘가");
-        delivery.setStatus(ARRIVE);
+        delivery.setStatus(READY);
         delivery.setAddress(address);
-
-
         deliveryService.DeliverySave(delivery);
 
         Checklist checklist = new Checklist();
 
-        //해당부분오류
-        Long checkid =  checklistService.Check(member.getId(), food.getId(), order.getId(),store.getId(), delivery.getId());
-
-
-
+        Long checkid =  checklistService.Check(member.getId(),food.getId(), order.getId(),store.getId(), delivery.getId());
         assertThat(checklist.getStock()).isEqualTo(qu);
+        assertThat(checklist.getStore_name()).isEqualTo(store_name);
         assertThat(checklist.getFood_name()).isEqualTo(Foodname);
-        assertEquals(checklist, checkRepository.findOne(checkid));
+
     }
 }
 

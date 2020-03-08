@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Getter@Setter
+@Getter
+
+@Setter
 @NoArgsConstructor
 @Table(name="delivery")
 public class Delivery extends BaseTimeEntity {
@@ -28,6 +30,5 @@ public class Delivery extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING) //배달 정보넘김
     private DeliveryStatus status;
-
 
 }
