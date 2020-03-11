@@ -39,7 +39,7 @@ public class Order extends BaseTimeEntity {
      */
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //지연로딩
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -119,10 +119,13 @@ public class Order extends BaseTimeEntity {
         return totalPrice;
 
     }
+
     /**
      * 장바구니를 control하는 함수 위의 cancel함수와 차이가있습니다.
      */
+
     public void basket_cancel(int quantity) //+, - 둘다 해당함수 불러옴
+
     {
 
         if (stockQuantity == 1) {

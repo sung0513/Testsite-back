@@ -24,6 +24,7 @@ public class MemberService {
     }
 
     @Transactional
+    //FIND , SAVE
     public Long SingUp(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
@@ -37,6 +38,7 @@ public class MemberService {
         }
     }
 
+
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
@@ -48,7 +50,8 @@ public class MemberService {
 
     @Transactional(readOnly =true)
     public List<AddressListResponseDto> b_findMembers(){return memberRepository.b_findAll().stream().map(AddressListResponseDto::new).collect(Collectors.toList()
-    ); }
+        );
+    }
 
 }
 

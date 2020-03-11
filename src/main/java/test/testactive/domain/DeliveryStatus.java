@@ -9,7 +9,7 @@ import javax.persistence.EnumType;
 @Getter
 public enum  DeliveryStatus {
 
-        READY, SHIPPING ,ARRIVE,CANCEL
+        READY, SHIPPING ,ARRIVE,CANCEL, SUCCESS
 
 }
 
