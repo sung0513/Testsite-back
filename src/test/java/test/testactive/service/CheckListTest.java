@@ -114,10 +114,10 @@ public class CheckListTest {
         Long orderId = orderService.order(memberId, foodId, 3,qu);
 
 
-        Store store = new Store();
-        store.setName(store_name);
-        storeService.Storesave(store);
-        Store storeId = storeRepository.findOne(store.getId());
+        Store store = Store.builder().build();
+        Long storeId = storeService.Storesave(store.builder()
+                        .name(store_name)
+                        .build());
 
 
         Delivery delivery = Delivery.builder().build();
@@ -129,7 +129,7 @@ public class CheckListTest {
 
         Checklist checklist = new Checklist();
 
-        Long checkid =  checklistService.Check(foodId, orderId,store.getId(), deliveryId, address);
+        Long checkid =  checklistService.Check(foodId, orderId,storeId, deliveryId, address);
         assertThat(checklist.getStock()).isEqualTo(qu);
         assertThat(checklist.getStore_name()).isEqualTo(store_name);
         assertThat(checklist.getFood_name()).isEqualTo(Foodname);
