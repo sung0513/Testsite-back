@@ -88,7 +88,7 @@ public class Order extends BaseTimeEntity {
      *  해서 넣기만 하면 ok
      */
 
-    public  static Order createOrder(Member member, Delivery delivery, Orderfood... orderfood)
+    public  static Order createOrder(Member member, Delivery delivery, int qu, Orderfood... orderfood )
     {
         Order order = Order.builder().build();
         order.setMember(member);
@@ -99,6 +99,7 @@ public class Order extends BaseTimeEntity {
         }
         order.builder()
                 .status(DeliveryStatus.READY)
+                .stockQuantity(qu)
                 .build();
 
         // LocalData 삭제.

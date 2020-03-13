@@ -103,30 +103,25 @@ public class CheckListTest {
                 .build());
 
 
-        Food food = new Food(); //배송량
-        food.setName(Foodname);
-        food.setPrice(price);
-        foodService.Foodsave(food);
-        Food foodId = foodService.findOne(food.getId());
+        Food food = Food.builder().build();
+        Long foodId = foodService.SingUp(food.builder()
+                .name(Foodname)
+                .price(price)
+                .build());
 
 
-//        Order order = Order.builder().build();
-//        orderRepository.save(Order.builder()
-//                .stockQuantity(qu)
-//                .build());
-        Order order = new Order(); //배송량
-        order.setStockQuantity(qu);
-        orderRepository.save(order);
-        Long orderId = orderService.order(memberId, food.getId(), 3);
+
+        Long orderId = orderService.order(memberId, foodId, 3,3);
+
 
         Store store = new Store();
         store.setName(store_name);
         storeService.Storesave(store);
         Store storeId = storeRepository.findOne(store.getId());
 
-        //builder로는 저장이안됨 ㄷㄷ...
+
         Delivery delivery = Delivery.builder().build();
-        deliveryService.DeliverySave(Delivery.builder()
+        Long deliveryId = deliveryService.DeliverySave(Delivery.builder()
                 .status(READY)
                 .address(address)
                 .build());
@@ -134,7 +129,7 @@ public class CheckListTest {
 
         Checklist checklist = new Checklist();
 
-        Long checkid =  checklistService.Check(food.getId(), orderId,store.getId(), delivery.getId(), address);
+        Long checkid =  checklistService.Check(foodId, orderId,store.getId(), deliveryId, address);
         assertThat(checklist.getStock()).isEqualTo(qu);
         assertThat(checklist.getStore_name()).isEqualTo(store_name);
         assertThat(checklist.getFood_name()).isEqualTo(Foodname);

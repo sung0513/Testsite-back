@@ -19,8 +19,9 @@ public class DeliveryService {
         this.deliveryRepository = deliveryRepository;
     }
     @Transactional
-    public void DeliverySave(Delivery delivery){ //직접만든레포지토리
+    public Long DeliverySave(Delivery delivery){ //직접만든레포지토리
             deliveryRepository.save(delivery);
+            return delivery.getId();
         }
 
     @Transactional
