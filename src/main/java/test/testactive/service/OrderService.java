@@ -43,7 +43,7 @@ public class OrderService {
         Orderfood orderfood = Orderfood.createOrderfood(food, food.getPrice(), count);
 
         //주문에는 주문시킨사람, 배송, 음식배송 정보가 담겨 있음 -> 버전업에서는 다른 여러가지 주문에 대한 사항추가
-        Order order = Order.createOrder(member, delivery, qu, orderfood);
+        Order order = Order.createOrder(member, delivery, qu, orderfood); //stock, status가 저장이안됨.
 
         //이것을 orderRepository에서 받아와 주문을 저장한다.
         orderRepository.save(order);

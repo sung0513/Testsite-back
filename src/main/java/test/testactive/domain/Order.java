@@ -16,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "orders")
 @NoArgsConstructor
 public class Order extends BaseTimeEntity {
@@ -51,13 +52,11 @@ public class Order extends BaseTimeEntity {
     private DeliveryStatus status;
 
     @Builder
-    public Order(Long id, Member member, List<Orderfood> orderfoods, Delivery delivery, int stockQuantity, DeliveryStatus status) {
-        this.id = id;
-        this.member = member;
-        this.orderfoods = orderfoods;
-        this.delivery = delivery;
+    public Order( Member member, Delivery delivery, int stockQuantity, DeliveryStatus status) {
         this.stockQuantity = stockQuantity;
         this.status = status;
+        this.member = member;
+        this.delivery = delivery;
     }
 
     public void setMember(Member member) {
@@ -86,21 +85,32 @@ public class Order extends BaseTimeEntity {
     /**
      *  이거 주문 생성 할때 만드는 것임 만약에 필요한 경우에 새롭게 추가추가
      *  해서 넣기만 하면 ok
-     */
+//     */
+
 
     public  static Order createOrder(Member member, Delivery delivery, int qu, Orderfood... orderfood )
     {
         Order order = Order.builder().build();
         order.setMember(member);
         order.SetDelivery(delivery);
+        order.setStatus(DeliveryStatus.READY);
+        order.setStockQuantity(qu);
+
+
 
         for(Orderfood orderfoods : orderfood) {
             order.addOrderFood(orderfoods);
         }
-        order.builder()
-                .status(DeliveryStatus.READY)
-                .stockQuantity(qu)
-                .build();
+
+        /**
+            Order.builder 로 넘길시 값이 안넘어간다.
+         */
+//        order.builder()
+//                .member(member)
+//                .delivery(delivery)
+//                .status(DeliveryStatus.READY)
+//                .stockQuantity(qu)
+//                .build();
 
         // LocalData 삭제.
         return order;

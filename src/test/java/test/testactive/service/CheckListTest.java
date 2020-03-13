@@ -87,11 +87,11 @@ public class CheckListTest {
     @Test
     public void alltest() {
 
-        String my_name = "현우짱";
-        String Foodname = "hot";
+        String my_name = "현우가";
+        String Foodname = "매운족발";
         int price = 100000;
-        int qu = 10;
-        String store_name = "네네치킨";
+        int qu = 12;
+        String store_name = "가족";
 
         Address address = new Address("강남구", "키키동");
         Member member = new Member();
@@ -111,7 +111,7 @@ public class CheckListTest {
 
 
 
-        Long orderId = orderService.order(memberId, foodId, 3,3);
+        Long orderId = orderService.order(memberId, foodId, 3,qu);
 
 
         Store store = new Store();
