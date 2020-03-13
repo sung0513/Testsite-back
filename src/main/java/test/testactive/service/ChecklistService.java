@@ -9,13 +9,12 @@ import test.testactive.food.Food;
 import test.testactive.repository.*;
 
 @Service
-@Transactional(readOnly = true)
+
 @RequiredArgsConstructor
 
 public class ChecklistService {
 
     private final OrderRepository orderRepository;
-    private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
     private final StoreRepository storeRepository;
 
@@ -25,23 +24,20 @@ public class ChecklistService {
      * 주문 / 취소 / 검색 로직을 담겨 있습니다.
      */
 
+    @Transactional
     public void checksave(Checklist checklist){ //직접만든레포지토리
         checkRepository.save(checklist);
     }
 
     @Transactional
-
-    public Long Check(Long memberId, Long foodId, Long storeId, Long orderId, Long deliveryId) {
-
-
-        Member member = memberRepository.findOne(memberId);
+    public Long Check(Long foodId, Long storeId, Long orderId, Long deliveryId, Address address) {
         Food food = foodRepository.findOne(foodId);
         Store store = storeRepository.findOne(storeId);
         Order order = orderRepository.findOne(orderId);
         Delivery delivery = deliveryRepository.findOne(deliveryId);
 
 
-        Checklist checklist = Checklist.createchecklist(member,order,food,store,delivery);
+        Checklist checklist = Checklist.createchecklist(order,food,store,delivery, address);
         checkRepository.save(checklist);
         return checklist.getId();
     }

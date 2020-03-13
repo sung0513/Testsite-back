@@ -56,13 +56,7 @@ public class MemberServiceTest {
         /**
          * 기존 방식 @Setter 사용
          */
-//        Member member = new Member();
-//        member.setName("zz");
-//        member.setAddress(address);
-//        member.setCoupon(천원);
 
-//        Long saveId = memberService.SingUp(member);
-//        assertEquals(member, memberRepository.findOne(saveId));
     }
 
 

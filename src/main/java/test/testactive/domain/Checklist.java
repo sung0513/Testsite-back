@@ -19,7 +19,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 ////주소, 가격, 가게이름
 public class Checklist extends BaseTimeEntity {
@@ -28,7 +27,7 @@ public class Checklist extends BaseTimeEntity {
     @Column(name = "checklist_id")
     private Long id;
 
-    @Column
+    @Embedded
     private Address address;
 
     @Column
@@ -47,16 +46,17 @@ public class Checklist extends BaseTimeEntity {
     private DeliveryStatus status;
 
 
-    public static Checklist createchecklist(Member member,Order order, Food food, Store store, Delivery delivery)
+    public static Checklist createchecklist(Order order, Food food, Store store, Delivery delivery, Address address)
 
     {
         Checklist checklist = new Checklist();
-        checklist.SetAddress(member);
         checklist.SetFoodname(food);
         checklist.SetFoodPrice(food);
         checklist.SetStock(order);
         checklist.SetStorename(store);
         checklist.SetStatus(delivery);
+        checklist.SetAddress(address);
+
 
         return checklist;
     }
@@ -65,12 +65,12 @@ public class Checklist extends BaseTimeEntity {
         this.food_name = food.getName();
     }
 
-
-    public void SetAddress(Member member){
-        this.address = member.getAddress();
-    }
     public void SetFoodPrice(Food food){
         this.price = food.getPrice();
+    }
+
+    public void SetAddress(Address address){
+        this.address = address;
     }
 
     public void SetStock(Order order){

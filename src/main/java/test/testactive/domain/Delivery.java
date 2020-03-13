@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
-
 @Setter
 @NoArgsConstructor
 @Table(name="delivery")
@@ -31,4 +30,11 @@ public class Delivery extends BaseTimeEntity {
     @Enumerated(EnumType.STRING) //배달 정보넘김
     private DeliveryStatus status;
 
+    @Builder // 값변경.
+    public Delivery(DeliveryStatus status,Address address, Coupon coupon, Order order) {
+        this.status  = status;
+        this.address = address;
+        this.coupon = coupon;
+        this.order = order;
+    }
 }

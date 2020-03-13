@@ -4,8 +4,11 @@ package test.testactive.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import test.testactive.domain.Delivery;
+import test.testactive.food.Food;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,5 +26,11 @@ public class DeliveryRepository {
 
       public Delivery findOne(Long id) {
         return em.find(Delivery.class, id);
+    }
+
+    // 푸드값 반환.
+    public List<Delivery> findAll() {
+        return em.createQuery("select d from Delivery d", Delivery.class)
+                .getResultList();
     }
 }

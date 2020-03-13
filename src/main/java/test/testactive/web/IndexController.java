@@ -6,17 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import test.testactive.config.auth.dto.SessionUser;
 //import test.testactive.domain.user.UserService;
-import test.testactive.service.FoodService;
-import test.testactive.service.MemberService;
-import test.testactive.service.OrderService;
-import test.testactive.service.StoreService;
+import test.testactive.domain.Delivery;
+import test.testactive.domain.DeliveryStatus;
+import test.testactive.service.*;
 
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
-
+    private final DeliveryService deliveryService;
     private final FoodService foodService;
     private final StoreService storeService;
     private final OrderService orderService;
@@ -65,7 +64,10 @@ public class IndexController {
 
 
     @GetMapping("posts/chairman")
-    public String postsChairman(){
+    public String postsChairman(Model model){
+//        model.addAttribute("delivery", deliveryService.findStatus(0L) );
+        SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
+
         return "chairman";
     }
 }
