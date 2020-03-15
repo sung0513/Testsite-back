@@ -1,21 +1,11 @@
 package test.testactive.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import test.testactive.domain.Address;
 import test.testactive.domain.Delivery;
-import test.testactive.domain.Store;
-import test.testactive.food.Food;
+import test.testactive.domain.DeliveryStatus;
 import test.testactive.repository.DeliveryRepository;
-import test.testactive.repository.MemberRepository;
-import test.testactive.repository.StoreRepository;
-import test.testactive.response.StoreListResponseDto;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 
 @Service
@@ -29,8 +19,9 @@ public class DeliveryService {
         this.deliveryRepository = deliveryRepository;
     }
     @Transactional
-    public void DeliverySave(Delivery delivery){ //직접만든레포지토리
+    public Long DeliverySave(Delivery delivery){ //직접만든레포지토리
             deliveryRepository.save(delivery);
+            return delivery.getId();
         }
 
     @Transactional
@@ -38,8 +29,20 @@ public class DeliveryService {
 
        ///
         deliveryRepository.save(delivery);
-        ///
+
         return delivery.getId();
     }
 
+    @Transactional(readOnly =true)
+    public Delivery findOne(Long deliveryId) {
+        return deliveryRepository.findOne(deliveryId);
     }
+
+
+    @Transactional(readOnly =true)
+    public DeliveryStatus findStatus(Long deliveryId) {
+        Delivery delivery = deliveryRepository.findOne(deliveryId);
+        return delivery.getStatus();
+    }
+
+}

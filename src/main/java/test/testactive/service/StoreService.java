@@ -26,8 +26,9 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
 
-    public void Storesave(Store store){ //직접만든레포지토리
+    public Long Storesave(Store store){ //직접만든레포지토리
         storeRepository.save(store);
+        return store.getId();
     }
 
     /**

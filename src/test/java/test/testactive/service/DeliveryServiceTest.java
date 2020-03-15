@@ -31,11 +31,13 @@ public class DeliveryServiceTest {
     @Test
     public void testDelivery() throws Exception {
 
-        Delivery delivery = new Delivery();
+        Delivery delivery =  Delivery.builder().build();
         Address address = new Address("강남구","어딘가");
 
-        delivery.setStatus(ARRIVE);
-        delivery.setAddress(address);
+        delivery.builder()
+                .status(ARRIVE)
+                .address(address)
+                .build();
 
         deliveryRepository.save(delivery);
 //        Long dId = deliveryService.SingUp(delivery);

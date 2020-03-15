@@ -18,7 +18,7 @@ public class Address {
 
 
     @Builder
-    public Address( String zipcode, String street) {
+    public Address(String zipcode, String street) {
         this.zipcode = zipcode;
         this.street = street;
     }

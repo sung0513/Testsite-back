@@ -3,6 +3,7 @@ package test.testactive.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Check;
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 @Table(name = "orders")
+@NoArgsConstructor
 public class Order extends BaseTimeEntity {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
@@ -39,18 +42,22 @@ public class Order extends BaseTimeEntity {
      */
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //지연로딩
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
-
-    private LocalDateTime orderDate;
 
     private int stockQuantity;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-
+    @Builder
+    public Order( Member member, Delivery delivery, int stockQuantity, DeliveryStatus status) {
+        this.stockQuantity = stockQuantity;
+        this.status = status;
+        this.member = member;
+        this.delivery = delivery;
+    }
 
     public void setMember(Member member) {
         this.member = member; //member값을 입력받는다
@@ -63,30 +70,49 @@ public class Order extends BaseTimeEntity {
     }
 
 
+    /**
+     * @param delivery(Change)
+     * line 72,
+     * delivery.setOrder(this) -> .builder()
+     */
     public void SetDelivery(Delivery delivery) {
         this.delivery = delivery;
-        delivery.setOrder(this);
+        delivery.builder()
+                .order(this)
+                .build();
     }
-
 
     /**
      *  이거 주문 생성 할때 만드는 것임 만약에 필요한 경우에 새롭게 추가추가
      *  해서 넣기만 하면 ok
-     */
+//     */
 
 
-
-    public  static Order createOrder(Member member, Delivery delivery, Orderfood... orderfood)
+    public  static Order createOrder(Member member, Delivery delivery, int qu, Orderfood... orderfood )
     {
-        Order order = new Order();
+        Order order = Order.builder().build();
         order.setMember(member);
         order.SetDelivery(delivery);
+        order.setStatus(DeliveryStatus.READY);
+        order.setStockQuantity(qu);
+
+
 
         for(Orderfood orderfoods : orderfood) {
             order.addOrderFood(orderfoods);
         }
-        order.setStatus(DeliveryStatus.READY);
-        order.setOrderDate(LocalDateTime.now());
+
+        /**
+            Order.builder 로 넘길시 값이 안넘어간다.
+         */
+//        order.builder()
+//                .member(member)
+//                .delivery(delivery)
+//                .status(DeliveryStatus.READY)
+//                .stockQuantity(qu)
+//                .build();
+
+        // LocalData 삭제.
         return order;
     }
 
@@ -99,10 +125,16 @@ public class Order extends BaseTimeEntity {
             throw new IllegalStateException("출발은 상태에서는 취소 하실 수" +
                     "없습니다.");
         }
-        this.setStatus(DeliveryStatus.CANCEL);
+
+        Order order = Order.builder().build();
+        order.builder()
+                .status(DeliveryStatus.READY)
+                .build();
         for(Orderfood orderfood : orderfoods) {
             orderfood.cancel();
+
         }
+
         return;
     }
 
@@ -119,10 +151,13 @@ public class Order extends BaseTimeEntity {
         return totalPrice;
 
     }
+
     /**
      * 장바구니를 control하는 함수 위의 cancel함수와 차이가있습니다.
      */
+
     public void basket_cancel(int quantity) //+, - 둘다 해당함수 불러옴
+
     {
 
         if (stockQuantity == 1) {

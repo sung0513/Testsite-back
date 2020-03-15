@@ -36,10 +36,9 @@ import static test.testactive.domain.DeliveryStatus.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
+@Rollback(false)
 public class CheckListTest {
 
-    @Autowired
-    private EntityManager em;
     @Autowired
     MemberService memberService;
     @Autowired
@@ -88,46 +87,49 @@ public class CheckListTest {
     @Test
     public void alltest() {
 
-        String my_name = "현우짱";
-        String Foodname = "hot";
+        String my_name = "현우가";
+        String Foodname = "매운족발";
         int price = 100000;
-        int qu = 10;
-        String store_name = "치킨은bhc";
+        int qu = 12;
+        String store_name = "가족";
 
-        Address address = new Address("강남구", "신사동");
+        Address address = new Address("강남구", "키키동");
         Member member = new Member();
         //새로운 방식
-        memberRepository.save(Member.builder()
+       Long memberId = memberService.SingUp(Member.builder()
                 .name(my_name)
                 .address(address)
                 .coupon(천원)
                 .build());
-        Long memberId = memberService.SingUp(member);
 
-        Food food = new Food(); //배송량
-        food.setName(Foodname);
-        food.setPrice(price);
-        foodService.Foodsave(food);
-        Food foodId = foodService.findOne(food.getId());
 
-        Order order = new Order(); //배송량
-        order.setStockQuantity(qu);
-        orderRepository.save(order);
-        Long orderId = orderService.order(memberId, food.getId(), 3);
+        Food food = Food.builder().build();
+        Long foodId = foodService.SingUp(food.builder()
+                .name(Foodname)
+                .price(price)
+                .build());
 
-        Store store = new Store();
-        store.setName(store_name);
-        storeService.Storesave(store);
-        Store storeId = storeRepository.findOne(store.getId());
 
-        Delivery delivery = new Delivery();
-        delivery.setStatus(READY);
-        delivery.setAddress(address);
-        deliveryService.DeliverySave(delivery);
+
+        Long orderId = orderService.order(memberId, foodId, 3,qu);
+
+
+        Store store = Store.builder().build();
+        Long storeId = storeService.Storesave(store.builder()
+                        .name(store_name)
+                        .build());
+
+
+        Delivery delivery = Delivery.builder().build();
+        Long deliveryId = deliveryService.DeliverySave(Delivery.builder()
+                .status(READY)
+                .address(address)
+                .build());
+
 
         Checklist checklist = new Checklist();
 
-        Long checkid =  checklistService.Check(member.getId(),food.getId(), order.getId(),store.getId(), delivery.getId());
+        Long checkid =  checklistService.Check(foodId, orderId,storeId, deliveryId, address);
         assertThat(checklist.getStock()).isEqualTo(qu);
         assertThat(checklist.getStore_name()).isEqualTo(store_name);
         assertThat(checklist.getFood_name()).isEqualTo(Foodname);
