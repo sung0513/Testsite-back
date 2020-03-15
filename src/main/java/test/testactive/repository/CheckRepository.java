@@ -15,11 +15,10 @@ public class CheckRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    Checklist checklist;
-
     public Checklist findOne(Long id) {
         return em.find(Checklist.class, id);
     }
+
     public void save(Checklist checklist) {
         em.persist(checklist);
     }

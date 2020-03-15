@@ -6,15 +6,15 @@ import org.springframework.stereotype.Repository;
 import test.testactive.food.Food;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class FoodRepository {
 
+    @PersistenceContext
     private final EntityManager em;
-    private Food food;
-
 
     public void save(Food food) {
         if (food.getId() == null) { // id값이 없기때문에 새로 생성한 객체라고 생
@@ -23,7 +23,6 @@ public class FoodRepository {
             em.merge(food);   // update??들어온거 합칠꺼임 ㅇ
         }
     }
-
 
 
     public Food findOne(Long id) {
@@ -39,7 +38,7 @@ public class FoodRepository {
     }
 
 
-    public List<Food> b_findAll(){
+    public List<Food> b_findAll() {
         return em.createQuery("select 'FOOD_ID', 'PRICE', 'NAME'  from Food f", Food.class)
                 .getResultList();
     }

@@ -26,14 +26,15 @@ import java.util.List;
 public class StoreRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private final EntityManager em;
 
 
     @Transactional
     public void save(Store store) {
         em.persist(store);
     }
-    public  Store findOne(Long id) {
+
+    public Store findOne(Long id) {
         return em.find(Store.class, id);
     }
 
@@ -57,7 +58,7 @@ public class StoreRepository {
     }
 
 
-    public List<Store> b_findAll(){
+    public List<Store> b_findAll() {
         return em.createQuery("select 'STORE_NAME','STORE_TEL'  from Store ", Store.class)
                 .getResultList();
     }

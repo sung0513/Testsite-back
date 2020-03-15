@@ -15,15 +15,13 @@ import test.testactive.repository.FoodRepository;
 public class AddressService {
 
     private final AddressRepository addressRepository;
-    private Address address;
 
 
-    public void AddressSave(Address address){ //직접만든레포지
+    public void AddressSave(Address address) { //직접만든레포지
         addressRepository.save(address);
     }
 
-
-    @Transactional(readOnly =true)
+    @Transactional
     public Address findOne(Long foodId) {
         return addressRepository.findOne(foodId);
     }

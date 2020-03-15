@@ -20,23 +20,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class StoreService {
 
     private final StoreRepository storeRepository;
 
-    public Long Storesave(Store store){ //직접만든레포지토리
+    public Long Storesave(Store store) { //직접만든레포지토리
         storeRepository.save(store);
         return store.getId();
     }
 
     /**
-        DB에서 store정보를 가져오는 메서드 작성
+     * DB에서 store정보를 가져오는 메서드 작성
      */
 
     @Transactional
-    public Long storeInfo(Long storeId,String name, int tel, Address address) {
+    public Long storeInfo(Long storeId, String name, int tel, Address address) {
 
         Store store = storeRepository.findOne(storeId);
 
@@ -44,17 +44,18 @@ public class StoreService {
         storeRepository.save(store);
 
         //그래서 주문의 id를 가져와 반환한다. 각각의 정보를 다 담아서
-        return  store.getId(); //스토어정보
+        return store.getId(); //스토어정보
 
     }
 
-    @Transactional(readOnly =true)
-    public List<StoreListResponseDto> b_findStores(){return storeRepository.b_findAll().stream().map(StoreListResponseDto::new).collect(Collectors.toList()); }
+    @Transactional(readOnly = true)
+    public List<StoreListResponseDto> b_findStores() {
+        return storeRepository.b_findAll().stream().map(StoreListResponseDto::new).collect(Collectors.toList());
+    }
 
     /**
-            웹에서 사용자가 입력한 정보를 보여주는 메서드 작성
+     웹에서 사용자가 입력한 정보를 보여주는 메서드 작성
      */
-
 
 
 }

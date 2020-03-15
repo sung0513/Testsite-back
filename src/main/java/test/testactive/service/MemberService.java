@@ -1,6 +1,7 @@
 package test.testactive.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,16 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-
-@Transactional(readOnly = true)
+@Transactional
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-    @Autowired
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     @Transactional
     //FIND , SAVE
@@ -38,7 +34,6 @@ public class MemberService {
         }
     }
 
-
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
@@ -48,8 +43,9 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
-    @Transactional(readOnly =true)
-    public List<AddressListResponseDto> b_findMembers(){return memberRepository.b_findAll().stream().map(AddressListResponseDto::new).collect(Collectors.toList()
+    @Transactional(readOnly = true)
+    public List<AddressListResponseDto> b_findMembers() {
+        return memberRepository.b_findAll().stream().map(AddressListResponseDto::new).collect(Collectors.toList()
         );
     }
 

@@ -9,6 +9,7 @@ import test.testactive.domain.OrderSearch;
 import test.testactive.food.Food;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderRepository {
 
-
+    @PersistenceContext
     private final EntityManager em;
 
     public void save(Order order) {
@@ -60,23 +61,10 @@ public class OrderRepository {
 
     }
 
-    public List<Order> b_findAll(){
+    public List<Order> b_findAll() {
         return em.createQuery("select 'modified_date','STATUS' from  Order", Order.class)
                 .getResultList();
     }
 }
 
 
-//        public  List<Order> findAll(OrderSearch orderSearch)
-//        {
-//            String jpql = "select o from "
-//            em.createQuery("select  o from Order o join o.member m " +
-//                    "where o.status = :status " +
-//                    "and m.name like :name", Order.class)
-//                    .setParameter("status", orderSearch.getDeliveryStatus())
-//                    .setParameter("name", orderSearch.getMemberName())
-//                    .getResultList();
-//
-//
-//        }
-//}

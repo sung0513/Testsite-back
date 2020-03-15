@@ -12,7 +12,7 @@ import test.testactive.repository.OrderRepository;
 import test.testactive.repository.StoreRepository;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class OrderService {
 
@@ -54,7 +54,7 @@ public class OrderService {
     }
     //취소
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void cancelOrder(Long orderId, Long foodId, Long StoreId) {
 
         //주문 내역 조회 -> 내정보에서 확인
@@ -66,7 +66,7 @@ public class OrderService {
         order.cancel();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void cancelbasketOrder(Long foodId, Long orderId) {
 
         Order order = orderRepository.findOne(orderId);
@@ -77,14 +77,3 @@ public class OrderService {
     }
 }
 
-    //검색
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return  orderRepository.findAll(orderSearch);
-//
-//    }
-
-//    @Transactional(readOnly =true)
-//    public List<OrderListResponseDto> b_findOrders(){return orderRepository.b_findAll().stream().map(OrderListResponseDto::new).collect(Collectors.toList()); }
-//}
-
-//cascade -> 정보 다날려~

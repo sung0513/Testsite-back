@@ -13,18 +13,21 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class DeliveryRepository {
+
+
+    @PersistenceContext
     private final EntityManager em;
 
 
-      public void save(Delivery delivery) {
-          if (delivery.getId() == null) { // id값이 없기때문에 새로 생성한 객체라고 생
-              em.persist(delivery);
-          } else {
-              em.merge(delivery);   // update??들어온거 합칠꺼임 ㅇ
-          }
+    public void save(Delivery delivery) {
+        if (delivery.getId() == null) { // id값이 없기때문에 새로 생성한 객체라고 생
+            em.persist(delivery);
+        } else {
+            em.merge(delivery);   // update??들어온거 합칠꺼임 ㅇ
+        }
     }
 
-      public Delivery findOne(Long id) {
+    public Delivery findOne(Long id) {
         return em.find(Delivery.class, id);
     }
 

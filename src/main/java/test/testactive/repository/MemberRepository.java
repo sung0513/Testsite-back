@@ -8,13 +8,14 @@ import test.testactive.domain.Member;
 import test.testactive.domain.Order;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
 
-
+    @PersistenceContext
     private final EntityManager em;
 
     public void save(Member member) {

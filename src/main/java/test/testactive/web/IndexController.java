@@ -21,7 +21,7 @@ public class IndexController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final HttpSession httpSession;
-    // private final UserService userService;
+
 
 
     @GetMapping("/")
@@ -41,7 +41,7 @@ public class IndexController {
     }
 
     @GetMapping("posts/mydata")
-    public String postsMyData(Model model){
+    public String postsMyData(Model model) {
         SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
 
         if (user != null) { // 세션에 저장된 값이 있을때만 model에 userName으로 등록한다.
@@ -55,16 +55,14 @@ public class IndexController {
     }
 
 
-
     @GetMapping("posts/save")
-    public String postsSave(){
+    public String postsSave() {
         return "posts-save";
     }
 
 
-
     @GetMapping("posts/chairman")
-    public String postsChairman(Model model){
+    public String postsChairman(Model model) {
 //        model.addAttribute("delivery", deliveryService.findStatus(0L) );
         SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
 

@@ -7,16 +7,22 @@ import test.testactive.domain.Address;
 import test.testactive.domain.Delivery;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 @RequiredArgsConstructor
 @Repository
 public class AddressRepository {
-        private final EntityManager em;
-        public void save(Address address) {
-                em.persist(address);
-        }
 
-        public Address findOne(Long Id){return em.find(Address.class, Id);}
+    @PersistenceContext
+    private final EntityManager em;
+
+    public void save(Address address) {
+        em.persist(address);
+    }
+
+    public Address findOne(Long Id) {
+        return em.find(Address.class, Id);
+    }
 
 }
