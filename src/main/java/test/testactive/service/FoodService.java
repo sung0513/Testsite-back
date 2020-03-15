@@ -4,11 +4,8 @@ package test.testactive.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import test.testactive.domain.Member;
 import test.testactive.food.Food;
-import test.testactive.food.Food2Repository;
 import test.testactive.repository.FoodRepository;
-import test.testactive.request.FoodSaveRequestDto;
 import test.testactive.response.FoodListResponseDto;
 
 import java.util.List;

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.*;
 import test.testactive.food.Food;
+import test.testactive.domain.Member;
 import test.testactive.repository.FoodRepository;
 import test.testactive.repository.MemberRepository;
 import test.testactive.repository.OrderRepository;

@@ -1,32 +1,18 @@
 package test.testactive.service;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import net.bytebuddy.asm.Advice;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
-import org.hibernate.annotations.Check;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.*;
 import test.testactive.food.Food;
-import test.testactive.food.Food2Repository;
+import test.testactive.domain.Member;
+import test.testactive.repository.MemberRepository;
 import test.testactive.repository.*;
-import test.testactive.request.FoodSaveRequestDto;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.print.DocFlavor;
-import java.util.List;
-
-import static java.lang.Enum.valueOf;
-import static jdk.nashorn.internal.runtime.regexp.joni.constants.Arguments.NON;
 import static org.junit.Assert.assertEquals;
 
 import static org.assertj.core.api.Assertions.assertThat;

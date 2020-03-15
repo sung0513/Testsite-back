@@ -11,9 +11,7 @@ import javax.persistence.*;
 //고객 주소입력
 public class Address {
 
-    @Column(name = "zipcode")
     String zipcode;
-    @Column(name = "street")
     String street;
 
 

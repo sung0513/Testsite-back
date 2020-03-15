@@ -4,6 +4,7 @@ package test.testactive.domain;
 import jdk.nashorn.internal.runtime.Debug;
 import lombok.*;
 import org.springframework.stereotype.Component;
+import test.testactive.domain.*;
 import test.testactive.food.Food;
 
 import javax.persistence.*;

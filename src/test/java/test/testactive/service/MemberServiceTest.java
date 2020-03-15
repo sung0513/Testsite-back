@@ -1,26 +1,25 @@
 package test.testactive.service;
 
 
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.postprocessor.IPostProcessor;
 import test.testactive.domain.Address;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static test.testactive.domain.Coupon.천원;
-import static test.testactive.domain.DeliveryStatus.ARRIVE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,20 +31,17 @@ public class MemberServiceTest {
     @Autowired
     MemberRepository memberRepository;
 
-
-
     @Test
     public void testmember() throws Exception {
         String named = "현우";
         String street = "서울시";
-        String zipcode ="강남구";
-        Address address = new Address(zipcode,street);
-
+        String zipcode = "강남구";
+        Address address = new Address(zipcode, street);
         //새로운 방식
         memberRepository.save(Member.builder()
-                     .name(named)
-                     .address(address)
-                     .coupon(천원)
+                .name(named)
+                .address(address)
+                .coupon(천원)
                 .build());
         List<Member> mm = memberRepository.findAll();
         Member member = mm.get(0);
@@ -58,8 +54,6 @@ public class MemberServiceTest {
          */
 
     }
-
-
 
 
     @Test(expected = IllegalStateException.class)
@@ -80,9 +74,9 @@ public class MemberServiceTest {
     }
 
     @Test
-    public void input_BaseTimeEntity(){
+    public void input_BaseTimeEntity() {
         //given
-        LocalDateTime now = LocalDateTime.of(2020,2,17,0,0,0);
+        LocalDateTime now = LocalDateTime.of(2020, 2, 17, 0, 0, 0);
 
         memberRepository.save(Member.builder()
                 .name("pizza")
@@ -91,9 +85,10 @@ public class MemberServiceTest {
 
         Member member = MemberList.get(0);
 
-        System.out.println(">>>>>>>>>>>>> createDate = "+member.getCreatedDate()+", modifiedDate =" + member.getModifiedDate());
+        System.out.println(">>>>>>>>>>>>> createDate = " + member.getCreatedDate() + ", modifiedDate =" + member.getModifiedDate());
 
         assertThat(member.getCreatedDate()).isAfter(now);
         assertThat(member.getModifiedDate()).isAfter(now);
     }
+    //Rollbock(true) - > 작업 -> @Transactional
 }

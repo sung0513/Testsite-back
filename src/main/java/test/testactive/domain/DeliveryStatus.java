@@ -1,15 +1,22 @@
 package test.testactive.domain;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import javax.persistence.EnumType;
-
-@RequiredArgsConstructor
-@Getter
 public enum  DeliveryStatus {
 
-        READY, SHIPPING ,ARRIVE,CANCEL, SUCCESS
+        READY("준비중"),
+        SHIPPING("배달중") ,
+        ARRIVE("도착"),
+        CANCEL("취소"),
+        SUCCESS("리뷰를 달아주세요");
+
+        private String status;
+
+        DeliveryStatus(String status) {
+                this.status = status;
+        }
+
+        public String getStatus() {
+                return status;
+        }
 
 }
 

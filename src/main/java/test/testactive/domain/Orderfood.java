@@ -16,11 +16,11 @@ public class Orderfood extends BaseTimeEntity {
     @Column(name = "orderfood_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
     @JoinColumn(name = "order_id")
     private Order order;
 

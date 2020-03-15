@@ -6,7 +6,6 @@ import org.springframework.util.StringUtils;
 import test.testactive.domain.Member;
 import test.testactive.domain.Order;
 import test.testactive.domain.OrderSearch;
-import test.testactive.food.Food;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

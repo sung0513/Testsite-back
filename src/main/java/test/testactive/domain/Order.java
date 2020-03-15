@@ -5,12 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Check;
-import org.springframework.data.jpa.repository.Query;
 import test.testactive.exeception.NotEnoughStockException;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class Order extends BaseTimeEntity {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY) //member 과 order을 n:1로 매핑시킨다
+    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.ALL}) //member 과 order을 n:1로 매핑시킨다
     @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
     private Member member;
 

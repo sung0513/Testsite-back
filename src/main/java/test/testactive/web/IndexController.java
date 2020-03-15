@@ -6,8 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import test.testactive.config.auth.dto.SessionUser;
 //import test.testactive.domain.user.UserService;
-import test.testactive.domain.Delivery;
-import test.testactive.domain.DeliveryStatus;
+import test.testactive.service.MemberService;
 import test.testactive.service.*;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
+
     private final DeliveryService deliveryService;
     private final FoodService foodService;
     private final StoreService storeService;

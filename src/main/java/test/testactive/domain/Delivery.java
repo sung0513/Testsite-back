@@ -22,6 +22,7 @@ public class Delivery extends BaseTimeEntity {
     private Order order;
 
     @Embedded
+
     private Address address;
 
     @Enumerated(EnumType.STRING) // 쿠폰값 넘김

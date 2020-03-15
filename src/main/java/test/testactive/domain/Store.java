@@ -4,12 +4,8 @@ package test.testactive.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -40,7 +36,7 @@ public class Store extends BaseTimeEntity {
     private int s_coupon;
 
 
-    @ManyToOne(fetch = FetchType.LAZY) //member 과 order을 n:1로 매핑시킨다
+    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.ALL}) //member 과 order을 n:1로 매핑시킨다
     @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
     private Member member;
 
