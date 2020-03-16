@@ -115,12 +115,14 @@ public class CheckListTest {
 
 
         Store store = Store.builder().build();
+
         Long storeId = storeService.Storesave(store.builder()
                         .name(store_name)
                         .build());
 
 
         Delivery delivery = Delivery.builder().build();
+
         Long deliveryId = deliveryService.DeliverySave(Delivery.builder()
                 .status(READY)
                 .address(address)

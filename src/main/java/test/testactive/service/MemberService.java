@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+
 @RequiredArgsConstructor
 public class MemberService {
 
@@ -34,10 +34,12 @@ public class MemberService {
         }
     }
 
+    @Transactional(readOnly =  true)
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
+    @Transactional(readOnly =  true)
     public Member findOne(Long memberId) {
 
         return memberRepository.findOne(memberId);

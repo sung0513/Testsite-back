@@ -25,6 +25,7 @@ import static test.testactive.domain.DeliveryStatus.ARRIVE;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
+@Rollback(false)
 public class MemberServiceTest {
 
     @Autowired
@@ -47,6 +48,7 @@ public class MemberServiceTest {
                      .address(address)
                      .coupon(천원)
                 .build());
+
         List<Member> mm = memberRepository.findAll();
         Member member = mm.get(0);
         System.out.println(member.getCreatedDate());

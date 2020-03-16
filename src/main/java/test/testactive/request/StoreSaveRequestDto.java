@@ -23,7 +23,6 @@ public class StoreSaveRequestDto {
 
 
     @Builder
-
     public StoreSaveRequestDto(String name, String address, String tel, int s_coupon) {
         this.name = name;
         this.address = address;
