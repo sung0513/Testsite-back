@@ -45,6 +45,10 @@ public class Checklist extends BaseTimeEntity {
     @Enumerated(EnumType.STRING) //배달 정보넘김
     private DeliveryStatus status;
 
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "Comment_id")
+    private Comment comment;
+
 
     public static Checklist createchecklist(Order order, Food food, Store store, Delivery delivery, Address address)
 

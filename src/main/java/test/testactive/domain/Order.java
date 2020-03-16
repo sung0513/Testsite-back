@@ -18,16 +18,17 @@ import java.util.List;
 @NoArgsConstructor
 public class Order extends BaseTimeEntity {
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.ALL}) //member 과 order을 n:1로 매핑시킨다
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}) //member 과 order을 n:1로 매핑시킨다
     @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
     private Member member;
 
 
-    @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Orderfood> orderfoods = new ArrayList<>();
 
 
@@ -45,11 +46,13 @@ public class Order extends BaseTimeEntity {
 
     private int stockQuantity;
 
+    private Coupon coupon;
+
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
     @Builder
-    public Order( Member member, Delivery delivery, int stockQuantity, DeliveryStatus status) {
+    public Order(Member member, Delivery delivery, int stockQuantity, DeliveryStatus status) {
         this.stockQuantity = stockQuantity;
         this.status = status;
         this.member = member;
@@ -68,9 +71,8 @@ public class Order extends BaseTimeEntity {
 
 
     /**
-     * @param delivery(Change)
-     * line 72,
-     * delivery.setOrder(this) -> .builder()
+     * @param delivery(Change) line 72,
+     *                         delivery.setOrder(this) -> .builder()
      */
     public void SetDelivery(Delivery delivery) {
         this.delivery = delivery;
@@ -80,13 +82,13 @@ public class Order extends BaseTimeEntity {
     }
 
     /**
-     *  이거 주문 생성 할때 만드는 것임 만약에 필요한 경우에 새롭게 추가추가
-     *  해서 넣기만 하면 ok
-//     */
+     * 이거 주문 생성 할때 만드는 것임 만약에 필요한 경우에 새롭게 추가추가
+     * 해서 넣기만 하면 ok
+     * //
+     */
 
 
-    public  static Order createOrder(Member member, Delivery delivery, int qu, Orderfood... orderfood )
-    {
+    public static Order createOrder(Member member, Delivery delivery, int qu, Orderfood... orderfood) {
         Order order = Order.builder().build();
         order.setMember(member);
         order.SetDelivery(delivery);
@@ -94,13 +96,12 @@ public class Order extends BaseTimeEntity {
         order.setStockQuantity(qu);
 
 
-
-        for(Orderfood orderfoods : orderfood) {
+        for (Orderfood orderfoods : orderfood) {
             order.addOrderFood(orderfoods);
         }
 
         /**
-            Order.builder 로 넘길시 값이 안넘어간다.
+         Order.builder 로 넘길시 값이 안넘어간다.
          */
 //        order.builder()
 //                .member(member)
@@ -117,8 +118,8 @@ public class Order extends BaseTimeEntity {
      * 주문 후에 취소 상태를 보여준다
      */
 
-    public  void cancel() {
-        if(delivery.getStatus() == DeliveryStatus.ARRIVE) {
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.ARRIVE) {
             throw new IllegalStateException("출발은 상태에서는 취소 하실 수" +
                     "없습니다.");
         }
@@ -127,7 +128,7 @@ public class Order extends BaseTimeEntity {
         order.builder()
                 .status(DeliveryStatus.READY)
                 .build();
-        for(Orderfood orderfood : orderfoods) {
+        for (Orderfood orderfood : orderfoods) {
             orderfood.cancel();
 
         }
@@ -140,12 +141,12 @@ public class Order extends BaseTimeEntity {
      */
 
     public int getTotalPrice() {
-        int totalPrice =0;
-        for(Orderfood orderfood : orderfoods) {
-            totalPrice +=orderfood.getTotalPrice();
+        int totalPrice = 0;
+        for (Orderfood orderfood : orderfoods) {
+            totalPrice += orderfood.getTotalPrice();
         }
 
-        return totalPrice;
+        return totalPrice - (coupon.getCoupon());
 
     }
 
@@ -159,8 +160,7 @@ public class Order extends BaseTimeEntity {
 
         if (stockQuantity == 1) {
             throw new NotEnoughStockException("non click sub");
-        }
-        else if (stockQuantity >= 100) {
+        } else if (stockQuantity >= 100) {
             throw new NotEnoughStockException("non click add");
         }
 

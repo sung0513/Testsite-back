@@ -61,13 +61,11 @@ public class CheckListTest {
     StoreService storeService;
 
 
-
     @Autowired
     AddressRepository addressRepository;
 
     @Autowired
     AddressService addressService;
-
 
 
     @Test
@@ -82,7 +80,7 @@ public class CheckListTest {
         Address address = new Address("강남구", "키키동");
         Member member = new Member();
         //새로운 방식
-       Long memberId = memberService.SingUp(Member.builder()
+        Long memberId = memberService.SingUp(Member.builder()
                 .name(my_name)
                 .address(address)
                 .coupon(천원)
@@ -96,14 +94,13 @@ public class CheckListTest {
                 .build());
 
 
-
-        Long orderId = orderService.order(memberId, foodId, 3,qu);
+        Long orderId = orderService.order(memberId, foodId, 3, qu);
 
 
         Store store = Store.builder().build();
         Long storeId = storeService.Storesave(store.builder()
-                        .name(store_name)
-                        .build());
+                .name(store_name)
+                .build());
 
 
         Delivery delivery = Delivery.builder().build();
@@ -114,8 +111,7 @@ public class CheckListTest {
 
 
         Checklist checklist = new Checklist();
-
-        Long checkid =  checklistService.Check(foodId, orderId,storeId, deliveryId, address);
+        Long checkid = checklistService.Check(foodId, orderId, storeId, deliveryId, address);
         assertThat(checklist.getStock()).isEqualTo(qu);
         assertThat(checklist.getStore_name()).isEqualTo(store_name);
         assertThat(checklist.getFood_name()).isEqualTo(Foodname);

@@ -1,20 +1,23 @@
 package test.testactive.domain;
 
 
+import lombok.NoArgsConstructor;
+
 public enum Coupon {
 
-    천원("1000"),
-    이천원("2000"),
-    삼천원("3000");
 
-    private String coupon;
+    천원(1000),
+    이천원(2000),
+    삼천원(3000);
 
-    Coupon(String coupon){
+    private int coupon;
+    Coupon(int coupon){
         this.coupon = coupon;
     }
 
-    public String getCoupon() {
+    public int getCoupon() {
         return coupon;
+
     }
 
 }
