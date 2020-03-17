@@ -15,19 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.*;
 import test.testactive.food.Food;
-import test.testactive.food.Food2Repository;
 import test.testactive.repository.*;
-import test.testactive.request.FoodSaveRequestDto;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.print.DocFlavor;
-import java.util.List;
-
-import static java.lang.Enum.valueOf;
-import static jdk.nashorn.internal.runtime.regexp.joni.constants.Arguments.NON;
-import static org.junit.Assert.assertEquals;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static test.testactive.domain.Coupon.천원;

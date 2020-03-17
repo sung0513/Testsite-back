@@ -1,6 +1,7 @@
 package test.testactive.repository;
 
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import test.testactive.domain.Address;
@@ -14,7 +15,6 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-
 public class CommentRepository {
         @PersistenceContext
         private final EntityManager em;
@@ -35,6 +35,10 @@ public class CommentRepository {
             return em.createQuery("select m from Comment m" , Comment.class )
                     .getResultList();
 
+        }
+
+        public void deleteAll(Comment comment){
+            em.remove(comment);
         }
 
 

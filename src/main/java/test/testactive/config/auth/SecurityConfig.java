@@ -42,10 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
                 // '/'등 지정된 url : 전체열람권한 ,
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()//권한관리대상 지정옵션
-//                "api/v1/**주소를 가진 api는 user권한을 가진 사람만 등록
-                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-
-                .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다3403
+//               //코멘트 부분 권한
+                .antMatchers("/Guest/**").hasRole(Role.GUEST.name())
+                .antMatchers("/Chairman/**").hasRole(Role.USER.name())
+                .antMatchers("/post/chairman").hasRole(Role.USER.name())
+                .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다
 
                 .and()
                     .logout()

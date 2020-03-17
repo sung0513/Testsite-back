@@ -10,10 +10,9 @@ import test.testactive.food.Food;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+//사장님이 버튼을 눌러 현재 배달상태를 바꾼다.
 @Getter
 @NoArgsConstructor
-
-//사장님이 버튼을 눌러 현재 배달상태를 바꾼다.
 public class DeliverySaveRequestDto {
 
 

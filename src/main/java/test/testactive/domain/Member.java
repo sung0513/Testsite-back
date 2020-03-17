@@ -1,9 +1,7 @@
 package test.testactive.domain;
 
 
-import jdk.nashorn.internal.runtime.Debug;
 import lombok.*;
-import org.springframework.stereotype.Component;
 import test.testactive.food.Food;
 
 import javax.persistence.*;
@@ -12,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+
 @NoArgsConstructor
 //food_name, food_price, store_name, store_tel, my_address, status
 public class Member extends BaseTimeEntity {
@@ -41,15 +40,12 @@ public class Member extends BaseTimeEntity {
     private Coupon coupon;
 
     @Builder // 값변경.
-    public Member(String name, Address address, Coupon coupon) {
+    public  Member(String name, Address address, Coupon coupon) {
         this.name = name;
         this.address = address;
         this.coupon = coupon;
 
     }
-
-
-
 
 }
 

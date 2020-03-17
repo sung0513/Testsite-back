@@ -1,12 +1,15 @@
 package test.testactive.request;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import test.testactive.domain.Comment;
 import test.testactive.domain.user.User;
 import test.testactive.food.Food;
 
+@Getter
+@NoArgsConstructor
 public class CommentSaveRequestDto {
-
     private String User_comment;
     private String Guest_comment;
 

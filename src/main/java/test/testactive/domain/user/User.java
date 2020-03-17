@@ -2,15 +2,13 @@ package test.testactive.domain.user;
 
 import lombok.*;
 import test.testactive.domain.BaseTimeEntity;
+import test.testactive.domain.Comment;
+import test.testactive.domain.Order;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import java.util.ArrayList;
+import java.util.List;
 
 //구글 or 네이버 로그인시 DB 엔티티생성
 @Getter
@@ -30,6 +28,9 @@ public class User extends BaseTimeEntity {
 
     @Column
     private String picture;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Comment> comment = new ArrayList<>();
 
 
     @Enumerated(EnumType.STRING) //db에 저장시 이넘값을 어떤형태로 저장할지 결정한다. default ; int

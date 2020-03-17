@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import test.testactive.config.auth.dto.SessionUser;
 //import test.testactive.domain.user.UserService;
-import test.testactive.domain.Delivery;
-import test.testactive.domain.DeliveryStatus;
 import test.testactive.service.*;
 
 import javax.servlet.http.HttpSession;
@@ -55,17 +53,20 @@ public class IndexController {
     }
 
 
-    @GetMapping("posts/save")
+    //유저 댓글
+    @GetMapping("/posts/comment")
     public String postsSave() {
-        return "posts-save";
+        return "posts-comment";
     }
 
+    //유저댓글을 보여주는 페이지만들기
 
-    @GetMapping("posts/chairman")
-    public String postsChairman(Model model) {
-//        model.addAttribute("delivery", deliveryService.findStatus(0L) );
-        SessionUser user = (SessionUser) httpSession.getAttribute("user"); //세션값을 가져오는 부분
+    //유저댓글을 보여준페이지 밑에 사장님이 댓글을 달 수 있는 페이지를 만들기.
 
+
+    //배송을 알리는 사장님 페이지
+    @GetMapping("/posts/chairman")
+    public String postsChairman() {
         return "chairman";
     }
 }

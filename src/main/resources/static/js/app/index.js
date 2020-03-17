@@ -4,16 +4,16 @@ var index = {
         $('#btn-save').on('click', function () {
             _this.save();
         });
+
     },
     save: function () {
         var data = {
-            name: $('#name').val(),
-            price: $('#price').val()
+            Guest_comment: $('#content').val()
         };
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/Foods',
+            url: '/Guest/comment',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)

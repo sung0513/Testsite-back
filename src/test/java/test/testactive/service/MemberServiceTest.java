@@ -39,8 +39,8 @@ public class MemberServiceTest {
     public void testmember() throws Exception {
         String named = "현우";
         String street = "서울시";
-        String zipcode ="강남구";
-        Address address = new Address(zipcode,street);
+        String zipcode = "강남구";
+        Address address = new Address(zipcode, street);
 
         //새로운 방식
         memberRepository.save(Member.builder()

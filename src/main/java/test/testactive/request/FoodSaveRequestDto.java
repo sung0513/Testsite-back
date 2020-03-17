@@ -7,10 +7,6 @@ import test.testactive.food.Food;
 
 @Getter
 @NoArgsConstructor
-
-
-//고객이 웹에서 입력 받아 저장하는 클래스
-
 public class FoodSaveRequestDto {
     private Long id;
     private String name;

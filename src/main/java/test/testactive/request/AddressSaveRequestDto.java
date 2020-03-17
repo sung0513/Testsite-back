@@ -1,9 +1,13 @@
 package test.testactive.request;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import test.testactive.domain.Address;
 
 
+@Getter
+@NoArgsConstructor
 public class AddressSaveRequestDto {
 
     private String zipcode;

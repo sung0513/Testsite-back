@@ -2,9 +2,7 @@ package test.testactive.response;
 
 import lombok.Getter;
 import test.testactive.domain.Comment;
-import test.testactive.food.Food;
 
-import java.time.LocalDateTime;
 
 @Getter
 public class CommentListResponseDto {
