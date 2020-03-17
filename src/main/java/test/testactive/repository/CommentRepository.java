@@ -4,6 +4,7 @@ package test.testactive.repository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Address;
 import test.testactive.domain.Comment;
 import test.testactive.domain.Member;
@@ -19,27 +20,33 @@ public class CommentRepository {
         @PersistenceContext
         private final EntityManager em;
 
-        public void save(Comment comment) {
+    @Transactional
+    public Comment save(Comment entity){
 
-            em.persist(comment);
+        em.persist(entity);
+        return entity;
 
-        }
+    }
 
-        public Comment findOne(Long id) {
+    public Comment findOne(Long id) {
 
-            return em.find(Comment.class, id);
+        return em.find(Comment.class, id);
 
-        }
+    }
 
-        public List<Comment> findAll() {
-            return em.createQuery("select m from Comment m" , Comment.class )
-                    .getResultList();
+    public List<Comment> findAll() {
+        return em.createQuery("select m from Comment m" , Comment.class )
+                .getResultList();
 
-        }
+    }
 
-        public void deleteAll(Comment comment){
-            em.remove(comment);
-        }
+    @Transactional
+    public void deleteAll(){
+
+        for(Comment element: findAll() )
+            em.remove(element);
+    }
+
 
 
 }

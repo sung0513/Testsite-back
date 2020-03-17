@@ -41,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()// url별 관리를 설정하는 옵션의 시작점 ; 해당옵션이 실행되어야지 matchers실행 가능
 
                 // '/'등 지정된 url : 전체열람권한 ,
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()//권한관리대상 지정옵션
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile","/Guest/**").permitAll()//권한관리대상 지정옵션
 //               //코멘트 부분 권한
-                .antMatchers("/Guest/**").hasRole(Role.GUEST.name())
+//                .antMatchers("/Guest/**").hasRole(Role.GUEST.name())//Test코드시에 주석처리
                 .antMatchers("/Chairman/**").hasRole(Role.USER.name())
                 .antMatchers("/post/chairman").hasRole(Role.USER.name())
                 .anyRequest().authenticated() //설정된 url이외의 나머지 url들을 나타낸다

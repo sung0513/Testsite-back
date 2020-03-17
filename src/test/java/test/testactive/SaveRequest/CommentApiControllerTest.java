@@ -31,14 +31,14 @@ public class CommentApiControllerTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private TestRepository commentRepository;
+    private CommentRepository commentRepository;
     @Autowired
     private CommentService commentService;
 
     @After
-//    public void tearDown() throws Exception{
-//        commentRepository.deleteAll();
-//    }
+    public void tearDown() throws Exception{
+        commentRepository.deleteAll();
+    }
 
     @Test
     public void comment_등록된다() throws Exception {
