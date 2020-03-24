@@ -22,8 +22,6 @@ import static test.testactive.domain.DeliveryStatus.ARRIVE;
 public class DeliveryServiceTest {
 
     @Autowired
-    DeliveryService deliveryService;
-    @Autowired
     DeliveryRepository deliveryRepository;
 
 

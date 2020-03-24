@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.Member;
 import test.testactive.repository.MemberRepository;
-import test.testactive.response.AddressListResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class MemberService {
+
 
     private final MemberRepository memberRepository;
 
@@ -43,12 +43,6 @@ public class MemberService {
     public Member findOne(Long memberId) {
 
         return memberRepository.findOne(memberId);
-    }
-
-    @Transactional(readOnly = true)
-    public List<AddressListResponseDto> b_findMembers() {
-        return memberRepository.b_findAll().stream().map(AddressListResponseDto::new).collect(Collectors.toList()
-        );
     }
 
 }

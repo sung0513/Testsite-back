@@ -4,19 +4,18 @@ package test.testactive.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.Check;
-import org.springframework.data.jpa.repository.Query;
+
+
 import test.testactive.exeception.NotEnoughStockException;
+import test.testactive.food.Food;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "orders")
 @NoArgsConstructor
 public class Order extends BaseTimeEntity {
@@ -30,8 +29,8 @@ public class Order extends BaseTimeEntity {
     private Member member;
 
 
-    @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL )
-    private List<Orderfood> orderfoods = new ArrayList<>();
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private List<Food> food = new ArrayList<>();
 
 
     /*
@@ -52,23 +51,25 @@ public class Order extends BaseTimeEntity {
     private DeliveryStatus status;
 
     @Builder
-    public Order( Member member, Delivery delivery, int stockQuantity, DeliveryStatus status) {
+    public Order(Delivery delivery, Member member, int stockQuantity, DeliveryStatus status) {
         this.stockQuantity = stockQuantity;
-        this.status = status;
-        this.member = member;
-        this.delivery = delivery;
+        setMember(member);
+        SetDelivery(delivery);
+        SetReady_DeliveryStatus(status);
     }
+
+
 
     public void setMember(Member member) {
         this.member = member; //member값을 입력받는다
         member.getOrder().add(this); //member값을 Oreder을 리스트에 더해준다.
     }
 
-    public void addOrderFood(Orderfood orderfood) {
-        orderfoods.add(orderfood); // orderfoods라는 배열에 orderfood 하나의 이름을 저장한다.
-        orderfood.setOrder(this);  // orderfood 를 오더에 설정해서 올림.
-    }
 
+
+    public void SetReady_DeliveryStatus(DeliveryStatus status){
+        this.status = status;
+    }
 
     /**
      * @param delivery(Change)
@@ -88,31 +89,12 @@ public class Order extends BaseTimeEntity {
 //     */
 
 
-    public  static Order createOrder(Member member, Delivery delivery, int qu, Orderfood... orderfood )
-    {
-        Order order = Order.builder().build();
+    public  static Order createOrder(Member member, Delivery delivery) {
+        Order order = new Order();
         order.setMember(member);
         order.SetDelivery(delivery);
-        order.setStatus(DeliveryStatus.READY);
-        order.setStockQuantity(qu);
 
-
-
-        for(Orderfood orderfoods : orderfood) {
-            order.addOrderFood(orderfoods);
-        }
-
-        /**
-            Order.builder 로 넘길시 값이 안넘어간다.
-         */
-//        order.builder()
-//                .member(member)
-//                .delivery(delivery)
-//                .status(DeliveryStatus.READY)
-//                .stockQuantity(qu)
-//                .build();
-
-        // LocalData 삭제.
+        order.SetReady_DeliveryStatus(DeliveryStatus.READY);
         return order;
     }
 
@@ -126,31 +108,28 @@ public class Order extends BaseTimeEntity {
                     "없습니다.");
         }
 
-        Order order = Order.builder().build();
-        order.builder()
-                .status(DeliveryStatus.READY)
-                .build();
-        for(Orderfood orderfood : orderfoods) {
-            orderfood.cancel();
 
-        }
-
+        this.SetCancle_DeliveryStatus(DeliveryStatus.CANCEL);
         return;
+    }
+
+    public void SetCancle_DeliveryStatus(DeliveryStatus status){
+        this.status = status;
     }
 
     /**
      * 주문 가격 합을 모두 가져와 보여줍니당
      */
 
-    public int getTotalPrice() {
-        int totalPrice =0;
-        for(Orderfood orderfood : orderfoods) {
-            totalPrice +=orderfood.getTotalPrice();
-        }
-
-        return totalPrice;
-
-    }
+//    public int getTotalPrice() {
+//        int totalPrice =0;
+//        for(Orderfood orderfood : orderfoods) {
+//            totalPrice +=orderfood.getTotalPrice();
+//        }
+//
+//        return totalPrice;
+//
+//    }
 
     /**
      * 장바구니를 control하는 함수 위의 cancel함수와 차이가있습니다.

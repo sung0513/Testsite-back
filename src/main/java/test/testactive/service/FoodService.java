@@ -8,8 +8,8 @@ import test.testactive.domain.Member;
 import test.testactive.food.Food;
 import test.testactive.food.Food2Repository;
 import test.testactive.repository.FoodRepository;
-import test.testactive.request.FoodSaveRequestDto;
-import test.testactive.response.FoodListResponseDto;
+
+import test.testactive.web.Response.FoodListResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

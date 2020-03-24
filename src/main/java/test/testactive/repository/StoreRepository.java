@@ -30,8 +30,9 @@ public class StoreRepository {
 
 
     @Transactional
-    public void save(Store store) {
+    public Store save(Store store) {
         em.persist(store);
+        return store;
     }
 
     public Store findOne(Long id) {

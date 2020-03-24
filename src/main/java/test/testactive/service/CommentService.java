@@ -1,20 +1,18 @@
 package test.testactive.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import test.testactive.domain.Comment;
 import test.testactive.repository.CommentRepository;
-import test.testactive.request.CommentSaveRequestDto;
-import test.testactive.web.TestRepository;
+import test.testactive.web.request.CommentSaveRequestDto;
+
 
 @Service
 @RequiredArgsConstructor
 public class CommentService {
 
-//     private final CommentRepository commentRepository;
-     private final TestRepository commentRepository;
+     private final CommentRepository commentRepository;
+
 
      @Transactional
      public Long save(CommentSaveRequestDto requestDto) {

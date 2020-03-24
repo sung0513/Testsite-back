@@ -1,14 +1,13 @@
-package test.testactive.request;
+package test.testactive.web.request;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import test.testactive.domain.Comment;
-import test.testactive.domain.user.User;
-import test.testactive.food.Food;
+import test.testactive.domain.Comments;
 
 @Getter
 @NoArgsConstructor
+
 public class CommentSaveRequestDto {
     private String User_comment;
     private String Guest_comment;
@@ -19,8 +18,8 @@ public class CommentSaveRequestDto {
         this.Guest_comment = Guest_comment;
     }
 
-    public Comment toEntity() {
-        return Comment.builder()
+    public Comments toEntity() {
+        return Comments.builder()
                 .User_comment(User_comment)
                 .Guest_comment(Guest_comment)
                 .build();

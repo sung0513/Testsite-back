@@ -1,22 +1,19 @@
-package test.testactive.response;
+package test.testactive.web.Response;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.Getter;
 import test.testactive.food.Food;
 
-import java.time.LocalDateTime;
-
 @Getter
-//사용자에게 주문한 정보를 보여줌.
 public class FoodListResponseDto {
+
 
     private Long id;
     private String name;
     private int price;
-    private LocalDateTime modifiedDate;
 
+    //전부다 뿌려줌.
     public FoodListResponseDto(Food entity){
-        this.id = getId();
+        this.id = entity.getId();
         this.name = entity.getName(); // 푸드이름
         this.price = entity.getPrice(); // 가격
     }

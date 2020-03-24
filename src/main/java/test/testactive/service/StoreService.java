@@ -8,15 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import test.testactive.domain.*;
 import test.testactive.food.Food;
 import test.testactive.repository.StoreRepository;
-import test.testactive.request.FoodSaveRequestDto;
-import test.testactive.request.StoreSaveRequestDto;
-import test.testactive.response.StoreListResponseDto;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -46,11 +39,6 @@ public class StoreService {
         //그래서 주문의 id를 가져와 반환한다. 각각의 정보를 다 담아서
         return store.getId(); //스토어정보
 
-    }
-
-    @Transactional(readOnly = true)
-    public List<StoreListResponseDto> b_findStores() {
-        return storeRepository.b_findAll().stream().map(StoreListResponseDto::new).collect(Collectors.toList());
     }
 
     /**

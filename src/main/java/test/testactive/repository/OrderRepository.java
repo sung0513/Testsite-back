@@ -22,8 +22,9 @@ public class OrderRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    public void save(Order order) {
+    public Order save(Order order) {
         em.persist(order);
+        return order;
     }
 
     public Order findOne(Long id) {
@@ -61,9 +62,11 @@ public class OrderRepository {
 
     }
 
-    public List<Order> b_findAll() {
-        return em.createQuery("select 'modified_date','STATUS' from  Order", Order.class)
+
+    public List<Order> findAll2() {
+        return em.createQuery("select m from Order m" , Order.class )
                 .getResultList();
+
     }
 }
 

@@ -10,11 +10,11 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import test.testactive.domain.Comment;
+import test.testactive.domain.Comments;
 import test.testactive.repository.CommentRepository;
-import test.testactive.request.CommentSaveRequestDto;
+
 import test.testactive.service.CommentService;
-import test.testactive.web.TestRepository;
+import test.testactive.web.request.CommentSaveRequestDto;
 
 import java.util.List;
 
@@ -61,11 +61,12 @@ public class CommentApiControllerTest {
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
         //본래 get으로 값을 불러올때 1차캐시에서 우선적으로 찾는 것으로 알고있다
         //하지만 save로 db에 값을 쑤셔넣어야지만 찾을 수 있다. 왜그러지?
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<Comment> all = commentRepository.findAll();
+        List<Comments> all = commentRepository.findAll();
         assertThat(all.get(0).getGuest_comment()).isEqualTo(guest_comment);
 
 

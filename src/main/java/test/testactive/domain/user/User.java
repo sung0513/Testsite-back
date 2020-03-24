@@ -2,11 +2,9 @@ package test.testactive.domain.user;
 
 import lombok.*;
 import test.testactive.domain.BaseTimeEntity;
-import test.testactive.domain.Comment;
-import test.testactive.domain.Order;
+import test.testactive.domain.Comments;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class User extends BaseTimeEntity {
     private String picture;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Comment> comment = new ArrayList<>();
+    private List<Comments> comment = new ArrayList<>();
 
 
     @Enumerated(EnumType.STRING) //db에 저장시 이넘값을 어떤형태로 저장할지 결정한다. default ; int

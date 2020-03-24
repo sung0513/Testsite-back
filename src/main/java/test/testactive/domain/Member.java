@@ -27,7 +27,7 @@ public class Member extends BaseTimeEntity {
     private List<Order> order = new ArrayList<>();  //member, order을 1:n으로 매핑시키고 order값을 가져온다.
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Food> food = new ArrayList<>();
+    private List<Food> foods = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
@@ -45,6 +45,11 @@ public class Member extends BaseTimeEntity {
         this.address = address;
         this.coupon = coupon;
 
+    }
+
+    public void add(Food food){
+        food.setMember(this);
+        this.foods.add(food);
     }
 
 }

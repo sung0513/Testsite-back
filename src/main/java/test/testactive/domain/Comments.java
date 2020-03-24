@@ -1,11 +1,10 @@
 package test.testactive.domain;
 
 
-import com.fasterxml.jackson.databind.ser.Serializers;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import test.testactive.domain.user.User;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import javax.persistence.*;
 @Getter
 
 @NoArgsConstructor
-public class Comment extends BaseTimeEntity {
+public class Comments extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -32,7 +31,7 @@ public class Comment extends BaseTimeEntity {
     private String User_comment;
 
     @Builder
-    public Comment( String Guest_comment, String User_comment) {
+    public Comments(String Guest_comment, String User_comment) {
         this.Guest_comment = Guest_comment;
         this.User_comment = User_comment;
     }

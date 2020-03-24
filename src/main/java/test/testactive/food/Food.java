@@ -14,7 +14,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Ftype")
 @Getter
-@Setter
 @NoArgsConstructor
 @Embeddable
 public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
@@ -35,15 +34,19 @@ public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
     @JoinColumn(name = "member_id") //외래키생성. many에서만 생성된다.
     private Member member;
 
-//
-//    @OneToOne(mappedBy = "delivery")
-//    private Checklist checklist;
+    @ManyToOne(fetch = FetchType.LAZY) //member 과 order을 n:1로 매핑시킨다
+    @JoinColumn(name = "order_id") //외래키생성. many에서만 생성된다.
+    private Order order;
 
     @Builder // 값변경.
     public Food(Long id,String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
 }
