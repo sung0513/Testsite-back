@@ -1,0 +1,80 @@
+.card {
+  float: left;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  margin-left: 50px;
+  margin-bottom: 50px;
+  color: white;
+}
+.header {
+  color: white !important;
+}
+.button1 {
+  padding-right: 10px;
+  border-right: 1px solid white;
+}
+.button2 {
+  padding-left: 10px;
+}
+
+.search {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  width: 450px;
+}
+
+.card2 {
+  width: 520px;
+  height: 100px;
+  color: black;
+  margin-left: 0px;
+}
+
+.cont {
+  margin-top: 50px;
+}
+
+.size {
+  width: 300px;
+  height: 100px;
+}
+
+.tab {
+  padding-left: 15px;
+}
+
+.nav-link.active {
+  color: white !important;
+  background-color: #111 !important;
+}
+
+a {
+  color: #111 !important;
+}
+
+.tab2 {
+  padding-left: 12%;
+  border: 1px solid white;
+}
+
+.order {
+  margin-top: 40px;
+  width: 92%;
+  height: 400px;
+  color: black;
+}
+
+.zoom {
+  transition: transform 0.2s; /* Animation */
+  width: 300px;
+  height: 150px;
+}
+
+.zoom:hover {
+  transform: scale(
+    1.1
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

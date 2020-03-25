@@ -12,6 +12,7 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: H2
+#    properties.hibernate.hbm2ddl.auto : update
     show-sql: true
     hibernate:
       ddl-auto: create
