@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.repository.JpaRepository;
 import test.testactive.food.Food;
 
 
@@ -21,7 +22,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 ////주소, 가격, 가게이름
-public class Checklist extends BaseTimeEntity {
+public class Checklist  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "checklist_id")

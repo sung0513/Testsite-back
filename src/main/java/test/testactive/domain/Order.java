@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "orders")
 @NoArgsConstructor
 public class Order extends BaseTimeEntity {
@@ -46,6 +45,7 @@ public class Order extends BaseTimeEntity {
 
     private int stockQuantity;
 
+    @Enumerated(EnumType.STRING)
     private Coupon coupon;
 
     @Enumerated(EnumType.STRING)
@@ -67,6 +67,12 @@ public class Order extends BaseTimeEntity {
     public void addOrderFood(Orderfood orderfood) {
         orderfoods.add(orderfood); // orderfoods라는 배열에 orderfood 하나의 이름을 저장한다.
         orderfood.setOrder(this);  // orderfood 를 오더에 설정해서 올림.
+    }
+    public void setStatus(DeliveryStatus status) {
+        this.status = status;
+    }
+    public  void setStockQuantity(int stockQuantity) {
+        this.stockQuantity=stockQuantity;
     }
 
 

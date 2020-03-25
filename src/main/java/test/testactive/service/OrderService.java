@@ -65,7 +65,10 @@ public class OrderService {
 
         //주문 취소 로직
         order.cancel();
+
+
     }
+
 
     @Transactional(readOnly = true)
     public void cancelbasketOrder(Long foodId, Long orderId) {

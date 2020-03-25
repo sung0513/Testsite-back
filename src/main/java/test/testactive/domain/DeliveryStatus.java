@@ -16,6 +16,7 @@ public enum  DeliveryStatus {
 
         public String getStatus() {
                 return status;
+
         }
 
 }

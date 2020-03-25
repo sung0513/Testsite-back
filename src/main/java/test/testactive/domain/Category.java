@@ -24,6 +24,13 @@ public class Category extends BaseTimeEntity {
     @Column(name ="category_name" )
     private String name;
 
+
+    @OneToMany(mappedBy = "cateogry" )
+    @Column()
+    private CategoryFood categoryFood;
+
+
+
     @ManyToMany // n:n 매핑
     @JoinTable(name = "category_item",
             joinColumns = @JoinColumn(name = "category_id"), // 해당컬럼 id와 조인

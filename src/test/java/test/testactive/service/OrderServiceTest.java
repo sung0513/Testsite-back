@@ -22,7 +22,7 @@ public class OrderServiceTest {
 
 
     @Test
-    public void 오더 계산() throws Exception{
+    public void 계산() throws Exception{
 
            //given
 

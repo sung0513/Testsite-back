@@ -23,7 +23,7 @@ import static test.testactive.domain.Coupon.천원;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
+@Transactional()
 public class MemberServiceTest {
 
     @Autowired
@@ -54,6 +54,22 @@ public class MemberServiceTest {
          */
 
     }
+
+    @Test
+    public void testsave() throws Exception{
+
+           //given
+
+            Member member = new Member();
+
+
+
+        //when
+
+        //then
+
+
+        }
 
 
     @Test(expected = IllegalStateException.class)

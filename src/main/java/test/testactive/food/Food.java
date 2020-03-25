@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "Ftype")
 @Getter
 @Setter
 @NoArgsConstructor
-@Embeddable
 public class Food extends BaseTimeEntity{ //builder로 값을 넘겨줘야함.
 
 

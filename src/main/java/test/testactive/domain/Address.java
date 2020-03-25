@@ -2,6 +2,7 @@ package test.testactive.domain;
 
 
 import lombok.*;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ public class Address {
 
     @Builder
     public Address(String zipcode, String street) {
+        super();
         this.zipcode = zipcode;
         this.street = street;
     }

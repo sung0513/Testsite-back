@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter@Setter
 @DiscriminatorValue("Z")
+@
 public class Zokbal extends Food {
 
         private String z_zokbal;
