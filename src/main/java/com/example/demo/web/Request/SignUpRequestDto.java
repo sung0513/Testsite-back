@@ -1,6 +1,9 @@
 package com.example.demo.web.Request;
 
 
+import com.example.demo.domain.Comments;
+import com.example.demo.domain.Member;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,15 +17,11 @@ public class SignUpRequestDto {
 
 
     @NotBlank
-    private String id;
+    private String name;
 
 
     @NotBlank
     private String password;
-
-    @NotBlank
-    private String passwordcheck;
-
 
     @NotBlank
     @Email
@@ -30,5 +29,22 @@ public class SignUpRequestDto {
 
     @NotBlank
     private String tel;
+
+    @Builder
+    public SignUpRequestDto(String name, String password, String email, String tel) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.tel = tel;
+    }
+
+    public Member toEntity() {
+        return Member.builder()
+                .name(name)
+                .password(password)
+                .email(email)
+                .tel(tel)
+                .build();
+    }
 
 }

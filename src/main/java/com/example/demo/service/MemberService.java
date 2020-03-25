@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
 
-
 import com.example.demo.domain.Member;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.web.Request.SignUpRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,12 +34,12 @@ public class MemberService {
         }
     }
 
-    @Transactional(readOnly =  true)
+    @Transactional(readOnly = true)
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    @Transactional(readOnly =  true)
+    @Transactional(readOnly = true)
     public Member findOne(Long memberId) {
 
         return memberRepository.findOne(memberId);

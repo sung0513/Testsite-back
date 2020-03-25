@@ -8,4 +8,5 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
 
     @Query("SELECT m FROM Food m")
     Food findOne(Long id);
+
 }

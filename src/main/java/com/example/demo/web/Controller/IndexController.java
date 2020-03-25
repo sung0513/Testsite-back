@@ -19,7 +19,6 @@ public class IndexController {
 
     private final HttpSession httpSession;
 
-    private final ChecklistService checklistService;
 
     private final OrderService orderService;
 
@@ -57,13 +56,13 @@ public class IndexController {
         return "mydata-page";
     }
 
-    @GetMapping("posts/checklist") //현재 주문목록 표시
-    public String postsChecklist(Model model) {
-        model.addAttribute("Checklist", checklistService.findAllDesc()); //food정보를 보여줌
-
-
-        return "checklist-page";
-    }
+//    @GetMapping("posts/checklist") //현재 주문목록 표시
+//    public String postsChecklist(Model model) {
+//        model.addAttribute("Checklist", checklistService.findAllDesc()); //food정보를 보여줌
+//
+//
+//        return "checklist-page";
+//    }
 
 
 

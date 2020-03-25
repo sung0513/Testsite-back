@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrderApiController {
     private final OrderService orderService;
-    private final ChecklistService checklistService;
     @PostMapping("/Order/Save") //결재 완료 클릭시 주문정보 저장.
     public Long save(@RequestBody Member member, @RequestBody Food food, @RequestBody Store store, @RequestBody Order order, @RequestBody Delivery delivery, int stock)
            {
-        checklistService.Check(member.getId(), food.getId(), store.getId(),order.getId(),delivery.getId());
         return  orderService.order(member.getId(), food.getId(), stock); //프론트에 값을 받아야한다.
 
     }

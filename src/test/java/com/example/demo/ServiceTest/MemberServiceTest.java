@@ -2,7 +2,6 @@ package com.example.demo.ServiceTest;
 
 
 import com.example.demo.domain.Address;
-import com.example.demo.domain.Coupon;
 import com.example.demo.domain.Member;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.service.MemberService;
@@ -10,9 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -22,7 +20,6 @@ import static org.junit.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-
 public class MemberServiceTest {
 
     @Autowired
@@ -35,15 +32,15 @@ public class MemberServiceTest {
     public void Insert_Test() throws Exception {
         String name = "현우";
         String street = "서울시";
-        String zipcode ="강남구";
-        Address address = new Address(zipcode,street);
+        String zipcode = "강남구";
+        String password = "12345";
+        Address address = new Address(zipcode, street);
+
 
         memberRepository.save(Member.builder()
                 .name(name)
-                .address(address)
-                .coupon(천원)
+                .password(password)
                 .build());
-
 
         List<Member> mm = memberRepository.findAll();
         System.out.println(memberRepository.findOne(mm.get(0).getId()));
